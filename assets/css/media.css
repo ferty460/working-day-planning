@@ -94,6 +94,14 @@
     .buttons {
         margin: 1rem auto;
     }
+
+    .flex {
+        flex-direction: column;
+    }
+
+    .folder-tasks {
+        width: 100%;
+    }
 }
 
 @media (max-width: 400px) {
@@ -116,6 +124,10 @@
 
     .description__task {
         font-size: 12px;
+    }
+
+    .title {
+        font-size: 20px;
     }
 }
 

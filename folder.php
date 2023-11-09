@@ -17,61 +17,62 @@
     <main class="main">
         <section class="task__section">
             <div class="title__block">
-                <h1 class="title">Добавление задачи</h1>
+                <h1 class="title">Папка</h1>
                 <hr class="line">
             </div>
-            <div class="flex">
-                <div class="theme-description form">
-                    <img src="assets/images/folder.svg" alt="folder" class="folder-img">
-                    <input type="text" name="subtask-theme" placeholder="Тема задачи">
-                    <textarea name="subtask-description" placeholder="Описание"></textarea>
+            <form action="" style="width: 100%;">
+                <div class="flex">
+                    <div class="theme-description form">
+                        <img src="assets/images/folder.svg" alt="folder" class="folder-img">
+                        <input type="text" name="subtask-theme" placeholder="Тема задачи">
+                        <textarea name="subtask-description" placeholder="Описание"></textarea>
+                    </div>
+                    <div class="tasks folder-tasks">
+                        <div class="task task__high">
+                            <div class="details__task">
+                                <h4 class="theme__task">Тема</h4>
+                                <p class="description__task">Задача не выполнена!</p>
+                            </div>
+                            <div>
+                                <p class="date__task">03.11.2023</p>
+                            </div>
+                        </div>
+                        <div class="task task__normal">
+                            <div class="details__task">
+                                <h4 class="theme__task">Тема</h4>
+                                <p class="description__task">Задача не выполнена!</p>
+                            </div>
+                            <div>
+                                <p class="date__task">03.11.2023</p>
+                            </div>
+                        </div>
+                        <div class="task task__low">
+                            <div class="details__task">
+                                <h4 class="theme__task">Тема</h4>
+                                <p class="description__task">Задача не выполнена!</p>
+                            </div>
+                            <div>
+                                <p class="date__task">03.11.2023</p>
+                            </div>
+                        </div>
+                        <div class="task task__done">
+                            <div class="details__task">
+                                <h4 class="theme__task">Тема</h4>
+                                <p class="description__task">Задача выполнена!</p>
+                            </div>
+                            <div>
+                                <p class="date__task">03.11.2023</p>
+                            </div>
+                        </div>
+                        <div class="block-buttons">
+                            <div class="buttons">
+                                <input type="button" value="Удалить" class="delete">
+                                <input type="submit" value="Готово" class="ok">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="tasks" style="width: 50%;">
-                    <div class="task task__high">
-                        <div class="details__task">
-                            <h4 class="theme__task">Тема</h4>
-                            <p class="description__task">Задача не выполнена!</p>
-                        </div>
-                        <div>
-                            <p class="date__task">03.11.2023</p>
-                        </div>
-                    </div>
-                    <div class="task task__normal">
-                        <div class="details__task">
-                            <h4 class="theme__task">Тема</h4>
-                            <p class="description__task">Задача не выполнена!</p>
-                        </div>
-                        <div>
-                            <p class="date__task">03.11.2023</p>
-                        </div>
-                    </div>
-                    <div class="task task__low">
-                        <div class="details__task">
-                            <h4 class="theme__task">Тема</h4>
-                            <p class="description__task">Задача не выполнена!</p>
-                        </div>
-                        <div>
-                            <p class="date__task">03.11.2023</p>
-                        </div>
-                    </div>
-                    <div class="task task__done">
-                        <div class="details__task">
-                            <h4 class="theme__task">Тема</h4>
-                            <p class="description__task">Задача выполнена!</p>
-                        </div>
-                        <div>
-                            <p class="date__task">03.11.2023</p>
-                        </div>
-                    </div>
-                    <div class="block-buttons">
-                        <div class="buttons">
-                            <input type="button" value="Удалить" class="delete">
-                            <input type="submit" value="Готово" class="ok">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            </form>
         </section>
     </main>
 </body>

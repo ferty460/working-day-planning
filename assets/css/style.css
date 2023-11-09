@@ -458,3 +458,11 @@ body {
     display: flex;
     justify-content: space-between;
 }
+
+.folder-tasks {
+    width: 50%;
+}
+
+.center {
+    justify-content: center;
+}
