@@ -160,11 +160,14 @@ body {
 
 .calendar-header {
     display: flex;
-    justify-content: space-between;
 }
 
 #currentMonth {
     text-transform: capitalize;
+}
+
+.month__buttons {
+    margin-left: 2rem;
 }
 
 .calendar-table th,
@@ -341,7 +344,7 @@ body {
     border-radius: 10px;
 }
 
-.ok:hover, .cancel:hover {
+.ok:hover, .cancel:hover, .cancel_ok:hover {
     cursor: pointer;
 }
 
@@ -378,7 +381,7 @@ body {
 }
 
 .date {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
 }
 
 .date input[type="date"] {
@@ -442,4 +445,16 @@ body {
 .subtask:hover {
     cursor: default;
     transform: none;
+}
+
+/* -------------- FOLDER -------------- */
+
+.folder-img {
+    margin: 1rem auto;
+    width: 40%;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
 }

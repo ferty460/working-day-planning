@@ -16,6 +16,10 @@
 
     <main class="main">
         <section class="task__section">
+            <div class="title__block">
+                <h1 class="title">Добавление задачи</h1>
+                <hr class="line">
+            </div>
             <div class="task__block">
                 <form action="">
                     <div class="theme-description-priority">
