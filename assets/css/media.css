@@ -125,9 +125,13 @@
     .username, .email {
         text-align: left;
     }
+
+    .login {
+        width: 40%;
+    }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 430px) {
     .option__panel, .dropbtn {
         font-size: 12px;
     }
@@ -155,6 +159,10 @@
 
     .username {
         font-size: 24px;
+    }
+
+    .login {
+        width: 60%;
     }
 }
 

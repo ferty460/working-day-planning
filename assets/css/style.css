@@ -161,6 +161,8 @@ body {
 
 .calendar-header {
     display: flex;
+    padding-left: 10px;
+    justify-content: space-between;
 }
 
 #currentMonth {
@@ -497,4 +499,39 @@ body {
 
 .email {
     text-align: center;
+}
+
+.login {
+    width: 30%;
+    margin: 0 auto;
+}
+
+.user-login-details {
+    width: 100%;
+}
+
+.user-login-details form {
+    width: 100%;
+}
+
+.input_username, .input_email, .input_password {
+    width: 100%;
+    border: 1px solid #494949;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 0.5rem;
+}
+
+.input_password {
+    margin-bottom: 2rem;
+}
+
+.login_input {
+    width: 100%;
+}
+
+.login-img {
+    display: block;
+    margin: 1rem auto;
+    width: 50%;
 }
