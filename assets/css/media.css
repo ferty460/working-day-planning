@@ -84,11 +84,19 @@
 
     .task__list {
         width: 100%;
-        margin: 0 auto;
+        margin: 1rem auto;
     }
 
     .theme-description, .priority-date, .progress {
         width: 100%;
+    }
+
+    .options-tasks {
+        margin-top: 1rem;
+    }
+
+    .priority-date, .options-tasks {
+        margin-left: 0;
     }
 
     .buttons {

@@ -300,8 +300,9 @@ body {
 }
 
 .theme-description textarea {
-    resize: vertical;
-    height: 150px;
+    resize: none;
+    min-height: 150px;
+    height: 100%;
 }
 
 .cancel {
@@ -320,7 +321,8 @@ body {
 }
 
 .task__list {
-    width: 50%;
+    width: 100%;
+    margin-left: 2rem;
 }
 
 .task__list .task__item {
@@ -359,7 +361,8 @@ body {
 }
 
 .priority-date {
-    width: 60%;
+    width: 100%;
+    margin-left: 1rem;
 }
 
 .task-priority {
@@ -398,7 +401,8 @@ body {
 }
 
 .progress {
-    width: 70%;
+    width: 100%;
+    margin-right: 2rem;
     padding: 1rem;
     border: 1px solid #494949;
     border-radius: 10px;
@@ -459,8 +463,13 @@ body {
     justify-content: space-between;
 }
 
+.options-tasks {
+    width: 100%; 
+    margin-left: 2rem;
+}
+
 .folder-tasks {
-    width: 50%;
+    width: 100%;
 }
 
 .center {

@@ -13,7 +13,7 @@
                 </div>
                 <div class="menu-items">
                     <li><a href="#"><img src="assets/images/workspace.png" alt="workspace"> Рабочий стол</a></li>
-                    <li><a href="#"><img src="assets/images/profile.png" alt="profile"> Мой профиль</a></li>
+                    <li><a href="#"><img src="assets/images/profile.svg" alt="profile"> Мой профиль</a></li>
                     <li><a href="#"><img src="assets/images/sign-out.png" alt="sign-out"> Выйти</a></li>
                 </div>
             </div>
