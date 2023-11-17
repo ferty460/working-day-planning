@@ -13,7 +13,43 @@
 </head>
 
 <body>
-    <?php include "blocks/header.php" ?>
+    <?php
+    require_once __DIR__.'/functions/db/boot.php';
+
+    $user = null;
+
+    if (check_auth()) {
+        $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
+        $stmt->execute(['id' => $_SESSION['user_id']]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    } else {
+        header("Location: categories/login.php");
+        die();
+    }
+    ?>
+    <?php if ($user) { ?>
+    <header class="header">
+        <nav>
+            <div class="navbar">
+                <div class="container nav-container">
+                    <input class="checkbox" type="checkbox" />
+                    <div class="hamburger-lines">
+                        <span class="line line1"></span>
+                        <span class="line line2"></span>
+                        <span class="line line3"></span>
+                    </div>
+                    <div class="logo">
+                        <h1>worky✔</h1>
+                    </div>
+                    <div class="menu-items">
+                        <li><a href="#">Рабочий стол</a></li>
+                        <li><a href="#">Мой профиль</a></li>
+                        <li><form action="functions/do_logout.php" method="post"><button class="logout" type="submit">Выйти</button></form></li>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
 
     <main class="main">
         <section class="side-panel">
@@ -128,6 +164,7 @@
             </div>
         </section>
     </main>
+    <?php } ?>
 
     <script src="assets/js/calendar.js"></script>
 </body>

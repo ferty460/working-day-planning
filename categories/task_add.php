@@ -4,16 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/media.css">
-    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/media.css">
+    <link rel="stylesheet" href="../assets/css/header.css">
     <title>Добавление задачи | Worky✔</title>
 </head>
 
 <body>
-    <?php include "blocks/header.php" ?>
+    <?php
+    require_once '../functions/db/boot.php';
 
+    $user = null;
+
+    if (check_auth()) {
+        $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
+        $stmt->execute(['id' => $_SESSION['user_id']]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    } else {
+        header("Location: login.php");
+        die();
+    }
+    ?>
+    <?php if ($user) { ?>
+    <?php include "../blocks/header.php" ?>
     <main class="main">
         <section class="task__section">
             <div class="title__block">
@@ -66,7 +80,7 @@
             </div>
         </section>
     </main>
-
+    <?php } ?>
 </body>
 
 </html>

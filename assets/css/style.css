@@ -109,7 +109,7 @@ body {
 
 .task:hover {
     cursor: pointer;
-    transform: translateY(-5px) scale(1.001) translateZ(0);
+    transform: translateY(-5px) scale(1.001) ;
 }
 
 .task__high {
@@ -524,6 +524,10 @@ body {
 
 .input_password {
     margin-bottom: 2rem;
+}
+
+.repeat {
+    margin-bottom: 0.5rem;
 }
 
 .login_input {

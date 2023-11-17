@@ -12,9 +12,9 @@
                     <h1>worky✔</h1>
                 </div>
                 <div class="menu-items">
-                    <li><a href="#"><img src="assets/images/workspace.png" alt="workspace"> Рабочий стол</a></li>
-                    <li><a href="#"><img src="assets/images/profile.svg" alt="profile"> Мой профиль</a></li>
-                    <li><a href="#"><img src="assets/images/sign-out.png" alt="sign-out"> Выйти</a></li>
+                    <li><a href="#">Рабочий стол</a></li>
+                    <li><a href="#">Мой профиль</a></li>
+                    <li><form action="../functions/do_logout.php" method="post"><button class="logout" type="submit">Выйти</button></form></li>
                 </div>
             </div>
         </div>

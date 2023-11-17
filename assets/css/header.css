@@ -14,15 +14,21 @@
 }
 
 .navbar .nav-container li {
+    text-align: center;
     list-style: none;
 }
 
-.navbar .nav-container a {
+.navbar .nav-container a, .logout{
     text-decoration: none;
     color: #0e2431;
     font-weight: 500;
     font-size: 1.2rem;
     padding: 0.7rem;
+}
+
+.logout {
+    height: 100%;
+    width: 100%;
 }
 
 .menu-items li:hover {
