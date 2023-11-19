@@ -17,6 +17,7 @@
     require_once __DIR__.'/functions/db/boot.php';
 
     $user = null;
+    $tasks = getAllTasks();
 
     if (check_auth()) {
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
@@ -27,7 +28,6 @@
         die();
     }
     ?>
-    <?php if ($user) { ?>
     <header class="header">
         <nav>
             <div class="navbar">
@@ -42,8 +42,8 @@
                         <h1>worky✔</h1>
                     </div>
                     <div class="menu-items">
-                        <li><a href="#">Рабочий стол</a></li>
-                        <li><a href="#">Мой профиль</a></li>
+                        <li><a href="index.php">Рабочий стол</a></li>
+                        <li><a href="categories/profile.php">Мой профиль</a></li>
                         <li><form action="functions/do_logout.php" method="post"><button class="logout" type="submit">Выйти</button></form></li>
                     </div>
                 </div>
@@ -85,10 +85,12 @@
                     </div>
                 </div>
                 <div class="folders">
-                    <div class="add__folder">
-                        <h3>Мои папки</h3>
-                        <p>+</p>
-                    </div>
+                    <a href="categories/folder_add.php">
+                        <div class="add__folder">
+                            <h3>Мои папки</h3>
+                            <p>+</p>
+                        </div>
+                    </a>
                     <div class="folder">
                         <img src="assets/images/folder.png" alt="folder">
                         <h4>Проект 1</h4>
@@ -109,7 +111,7 @@
             <div class="option__panel">
                 <hr class="hr">
                 <div class="options">
-                    <a href="#" class="add__task">+ Добавить задачу</a>
+                    <a href="categories/task_add.php" class="add__task">+ Добавить задачу</a>
                     <div class="block__sort">
                         <img src="assets/images/sort.png" alt="sort" class="img__sort">
                         <div class="dropdown">
@@ -125,46 +127,19 @@
             </div>
 
             <div class="tasks">
-                <div class="task task__high">
-                    <div class="details__task">
-                        <h4 class="theme__task">Тема</h4>
-                        <p class="description__task">Задача не выполнена!</p>
-                    </div>
-                    <div>
-                        <p class="date__task">03.11.2023</p>
-                    </div>
-                </div>
-                <div class="task task__normal">
-                    <div class="details__task">
-                        <h4 class="theme__task">Тема</h4>
-                        <p class="description__task">Задача не выполнена!</p>
-                    </div>
-                    <div>
-                        <p class="date__task">03.11.2023</p>
-                    </div>
-                </div>
-                <div class="task task__low">
-                    <div class="details__task">
-                        <h4 class="theme__task">Тема</h4>
-                        <p class="description__task">Задача не выполнена!</p>
-                    </div>
-                    <div>
-                        <p class="date__task">03.11.2023</p>
-                    </div>
-                </div>
-                <div class="task task__done">
-                    <div class="details__task">
-                        <h4 class="theme__task">Тема</h4>
-                        <p class="description__task">Задача выполнена!</p>
-                    </div>
-                    <div>
-                        <p class="date__task">03.11.2023</p>
-                    </div>
-                </div>
+                <?php foreach ($tasks as $task) {
+                    $class = $task['status'] ? 'done' : $task['priority'];
+                    $is_completed = $task['status'] ? 'Задача выполнена!' : 'Задача не выполнена!';
+                    
+                    echo '<a href="categories/task.php?id=' . $task['id'] . '">';
+                    echo '<div class="task task__' . $class . '">'; // high | normal | low | done
+                    echo '<div class="details__task"><h4 class="theme__task">' . $task['name'] . '</h4>';
+                    echo '<p class="description__task">' . $is_completed . '</p></div>';
+                    echo '<div><p class="date__task">' . $task['date'] . '</p></div></div></a>';
+                } ?>
             </div>
         </section>
     </main>
-    <?php } ?>
 
     <script src="assets/js/calendar.js"></script>
 </body>

@@ -1,9 +1,7 @@
 <?php
 
-// Инициализируем сессию
 session_start();
 
-// Простой способ сделать глобально доступным подключение в БД
 function pdo(): PDO {
     static $pdo;
 
@@ -33,4 +31,12 @@ function flash(?string $message = null) {
 
 function check_auth(): bool {
     return !!($_SESSION['user_id'] ?? false);
+}
+
+function getAllTasks() {
+    $stmt = pdo()->prepare("SELECT * FROM `tasks` WHERE user_id = :user_id");
+    $stmt->execute([
+        'user_id' => $_SESSION['user_id'],
+    ]);
+    return $stmt->fetchAll();
 }

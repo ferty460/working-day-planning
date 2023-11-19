@@ -26,7 +26,6 @@
         die();
     }
     ?>
-    <?php if ($user) { ?>
     <?php include "../blocks/header.php" ?>
     <main class="main">
         <section class="task__section">
@@ -34,8 +33,8 @@
                 <div class="profile">
                     <img src="../assets/images/profile.svg" alt="profile" class="profile-img">
                     <div class="user-details">
-                        <h4 class="username">username</h4>
-                        <h5 class="email">user@email.com</h5>
+                        <h4 class="username"><?php echo $_SESSION['user_name'] ?></h4>
+                        <h5 class="email"><?php echo $_SESSION['user_email'] ?></h5>
                     </div>
                 </div>
                 <div class="tasks">
@@ -79,7 +78,6 @@
             </div>
         </section>
     </main>
-    <?php } ?>
 </body>
 
 </html>

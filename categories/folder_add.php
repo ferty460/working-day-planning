@@ -26,7 +26,6 @@
         die();
     }
     ?>
-    <?php if ($user) { ?>
     <?php include "../blocks/header.php" ?>
     <main class="main">
         <section class="task__section">
@@ -51,7 +50,6 @@
             </form>
         </section>
     </main>
-    <?php } ?>
 </body>
 
 </html>

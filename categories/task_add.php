@@ -26,7 +26,6 @@
         die();
     }
     ?>
-    <?php if ($user) { ?>
     <?php include "../blocks/header.php" ?>
     <main class="main">
         <section class="task__section">
@@ -35,30 +34,30 @@
                 <hr class="line">
             </div>
             <div class="task__block">
-                <form action="">
+                <form action="../functions/add_task.php" method="post">
                     <div class="theme-description-priority">
                         <div class="theme-description form">
-                            <input type="text" name="subtask-theme" placeholder="Тема задачи">
-                            <textarea name="subtask-description" placeholder="Описание"></textarea>
+                            <input type="text" name="task-theme" placeholder="Тема задачи" required>
+                            <textarea name="task-description" placeholder="Описание" required></textarea>
                         </div>
                         <div class="priority-date">
                             <div class="task-priority">
                                 <h3 class="subtitle">Приоритет задачи</h3>
                                 <div class="tasks">
                                     <div class="radio__priority">
-                                        <input type="radio" name="high">
+                                        <input type="radio" name="priority" value='high'>
                                         <div class="task task__high subtask">
                                             <span>Высокий</span>
                                         </div>
                                     </div>
                                     <div class="radio__priority">
-                                        <input type="radio" name="normal">
+                                        <input type="radio" name="priority" value='normal'>
                                         <div class="task task__normal subtask">
                                             <span>Обычный</span>
                                         </div>
                                     </div>
                                     <div class="radio__priority">
-                                        <input type="radio" name="low">
+                                        <input type="radio" name="priority" value='low' checked>
                                         <div class="task task__low subtask">
                                             <span>Низкий</span>
                                         </div>
@@ -80,7 +79,6 @@
             </div>
         </section>
     </main>
-    <?php } ?>
 </body>
 
 </html>

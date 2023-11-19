@@ -23,6 +23,8 @@ if (password_verify($_POST['password'], $user['password'])) {
         ]);
     }
     $_SESSION['user_id'] = $user['id'];
+    $_SESSION['user_name'] = $user['username'];
+    $_SESSION['user_email'] = $user['email'];
     header('Location: ../index.php');
     die;
 }

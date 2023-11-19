@@ -30,8 +30,9 @@
                     </div>
                     <form action="../functions/do_register.php" method="post">
                         <?php flash(); ?>
-                        <input type="text" name="username" id="username" class="input_username" placeholder="Имя пользователя"><br>
-                        <input type="password" name="password" id="password" class="input_password" placeholder="Пароль"><br>
+                        <input type="text" name="username" id="username" class="input_username" placeholder="Имя пользователя" required><br>
+                        <input type="email" name="email" id="email" class="input_username" placeholder="Email пользователя" required><br>
+                        <input type="password" name="password" id="password" class="input_password" placeholder="Пароль" required><br>
 
                         <input type="submit" value="Зарегистрироваться" class="cancel login_input">
                         <div style="margin-top: 1rem;">

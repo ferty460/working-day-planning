@@ -16,6 +16,10 @@
     require_once '../functions/db/boot.php';
 
     $user = null;
+    $taskId = $_GET['id'];
+    $stmt = pdo()->prepare("SELECT * FROM `tasks` WHERE `id` = :id");
+    $stmt->execute(['id' => $taskId]);
+    $task = $stmt->fetch();
 
     if (check_auth()) {
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
@@ -25,8 +29,8 @@
         header("Location: login.php");
         die();
     }
+    if ($task['user_id'] != $user['id']) header('Location: login.php');
     ?>
-    <?php if ($user) { ?>
     <?php include "../blocks/header.php" ?>
     <main class="main">
         <section class="task__section">
@@ -100,27 +104,29 @@
                 <form action="">
                     <div class="theme-description-priority">
                         <div class="theme-description form">
-                            <input type="text" name="subtask-theme" placeholder="Тема задачи">
-                            <textarea name="subtask-description" placeholder="Описание"></textarea>
+                            <?php 
+                            echo '<input type="text" name="subtask-theme" placeholder="Тема задачи" value="' . $task['name'] . '">';
+                            echo '<textarea name="subtask-description" placeholder="Описание">' . $task['description'] . '</textarea>';
+                            ?>
                         </div>
                         <div class="priority-date">
                             <div class="task-priority">
                                 <h3 class="subtitle">Приоритет задачи</h3>
                                 <div class="tasks">
                                     <div class="radio__priority">
-                                        <input type="radio" name="high">
+                                        <input type="radio" name="priority" value="high" <?php if ($task['priority'] == 'high') echo 'checked'; ?>>
                                         <div class="task task__high subtask">
                                             <span>Высокий</span>
                                         </div>
                                     </div>
                                     <div class="radio__priority">
-                                        <input type="radio" name="normal">
+                                        <input type="radio" name="priority" value="normal" <?php if ($task['priority'] == 'normal') echo 'checked'; ?>>
                                         <div class="task task__normal subtask">
                                             <span>Обычный</span>
                                         </div>
                                     </div>
                                     <div class="radio__priority">
-                                        <input type="radio" name="low">
+                                        <input type="radio" name="priority" value="low" <?php if ($task['priority'] == 'low') echo 'checked'; ?>>
                                         <div class="task task__low subtask">
                                             <span>Низкий</span>
                                         </div>
@@ -128,7 +134,7 @@
                                 </div>
                             </div>
                             <div class="date">
-                                <input type="date" name="date">
+                                <input type="date" name="date" <?php echo 'value="' . $task['date'] . '"' ?>>
                             </div>
                         </div>
                     </div>
@@ -146,7 +152,6 @@
             </div>
         </section>
     </main>
-    <?php } ?>
 </body>
 
 </html>

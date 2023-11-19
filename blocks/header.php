@@ -12,8 +12,8 @@
                     <h1>worky✔</h1>
                 </div>
                 <div class="menu-items">
-                    <li><a href="#">Рабочий стол</a></li>
-                    <li><a href="#">Мой профиль</a></li>
+                    <li><a href="../index.php">Рабочий стол</a></li>
+                    <li><a href="../categories/profile.php">Мой профиль</a></li>
                     <li><form action="../functions/do_logout.php" method="post"><button class="logout" type="submit">Выйти</button></form></li>
                 </div>
             </div>
