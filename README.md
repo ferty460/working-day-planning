@@ -41,6 +41,8 @@ course work at a technical school :(
         id INT AUTO_INCREMENT PRIMARY KEY,
         theme VARCHAR(255),
         description TEXT,
+        is_completed BOOLEAN,
+        date_completed DATE NULL,
         task INT NULL,
         FOREIGN KEY (task) REFERENCES tasks(id)
     );

@@ -40,3 +40,15 @@ function getAllTasks() {
     ]);
     return $stmt->fetchAll();
 }
+
+function getTaskById($taskId) {
+    $stmt = pdo()->prepare("SELECT * FROM `tasks` WHERE `id` = :id");
+    $stmt->execute(['id' => $taskId]);
+    return $stmt->fetch();
+}
+
+function getSubtasksByTaskId($taskId) {
+    $stmt = pdo()->prepare("SELECT * FROM `subtasks` WHERE `task` = :id");
+    $stmt->execute(['id' => $taskId]);
+    return $stmt->fetchAll();
+}

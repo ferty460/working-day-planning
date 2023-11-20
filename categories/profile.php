@@ -16,6 +16,7 @@
     require_once '../functions/db/boot.php';
 
     $user = null;
+    $tasks = getAllTasks();
 
     if (check_auth()) {
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
@@ -38,42 +39,16 @@
                     </div>
                 </div>
                 <div class="tasks">
-                    <div class="task task__high">
-                        <div class="details__task">
-                            <h4 class="theme__task">Тема</h4>
-                            <p class="description__task">Задача не выполнена!</p>
-                        </div>
-                        <div>
-                            <p class="date__task">03.11.2023</p>
-                        </div>
-                    </div>
-                    <div class="task task__normal">
-                        <div class="details__task">
-                            <h4 class="theme__task">Тема</h4>
-                            <p class="description__task">Задача не выполнена!</p>
-                        </div>
-                        <div>
-                            <p class="date__task">03.11.2023</p>
-                        </div>
-                    </div>
-                    <div class="task task__low">
-                        <div class="details__task">
-                            <h4 class="theme__task">Тема</h4>
-                            <p class="description__task">Задача не выполнена!</p>
-                        </div>
-                        <div>
-                            <p class="date__task">03.11.2023</p>
-                        </div>
-                    </div>
-                    <div class="task task__done">
-                        <div class="details__task">
-                            <h4 class="theme__task">Тема</h4>
-                            <p class="description__task">Задача выполнена!</p>
-                        </div>
-                        <div>
-                            <p class="date__task">03.11.2023</p>
-                        </div>
-                    </div>
+                <?php foreach ($tasks as $task) {
+                    $class = $task['status'] ? 'done' : $task['priority'];
+                    $is_completed = $task['status'] ? 'Задача выполнена!' : 'Задача не выполнена!';
+                    
+                    echo '<a href="categories/task.php?id=' . $task['id'] . '">';
+                    echo '<div class="task task__' . $class . '">'; // high | normal | low | done
+                    echo '<div class="details__task"><h4 class="theme__task">' . $task['name'] . '</h4>';
+                    echo '<p class="description__task">' . $is_completed . '</p></div>';
+                    echo '<div><p class="date__task">' . $task['date'] . '</p></div></div></a>';
+                } ?>
                 </div>
             </div>
         </section>
