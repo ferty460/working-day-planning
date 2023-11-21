@@ -13,6 +13,7 @@
 </head>
 
 <body>
+
     <?php
     require_once '../functions/db/boot.php';
 
@@ -20,6 +21,7 @@
     $taskId = $_GET['id'];
     $task = getTaskById($taskId);
     $subtasks = getSubtasksByTaskId($taskId);
+    $completedSubtasks = getPercentageCompletedSubtasksInTask($taskId);
 
     if (check_auth()) {
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
@@ -31,28 +33,45 @@
     }
     if ($task['user_id'] != $user['id']) header('Location: login.php');
     ?>
+
     <?php include "../blocks/header.php" ?>
+
     <main class="main">
         <section class="task__section">
+
+            <!------------------ TABS ------------------>
             <div class="container-fluid">
                 <div class="row">
-                    <div id="SubtasksLink" class="col-sm-4 heading-design tab-link link-active">
-                        <h1 class="mb-0"><strong>Подзадачи</strong></h1>
+                    <div style="display: flex;">
+                        <div id="SubtasksLink" class="col-sm-4 heading-design tab-link link-active">
+                            <h1 class="mb-0"><strong>Подзадачи</strong></h1>
+                        </div>
+                        <div id="EditTaskLink" class="col-sm-4 heading-prog tab-link">
+                            <h1 class="mb-0"><strong>Редактирование задачи</strong></h1>
+                        </div>
                     </div>
-                    <div id="EditTaskLink" class="col-sm-4 heading-prog tab-link">
-                        <h1 class="mb-0"><strong>Редактирование задачи</strong></h1>
+
+                    <div style="display: flex;">
+                        <form action="../functions/delete_task.php" method="post">
+                            <input type="hidden" name="task_id" value="<?php echo $taskId ?>">
+                            <input type="submit" value="Удалить" class="delete">
+                        </form>
+                        <form action="../functions/perform_task.php" method="post">
+                            <input type="hidden" name="task_id" value="<?php echo $taskId ?>">
+                            <input type="submit" value="Завершить" class="ok">
+                        </form>
                     </div>
                 </div>
             </div>
 
+            <!------------------ SUBTASKS ------------------>
             <div id="Subtasks" class="container-fluid tab-content tab-active">
                 <div class="container-fluid">
                     <div class="subtask__block">
-                        <h3 class="subtitle">Подзадачи</h3>
                         <div class="form-list">
                             <form action="../functions/add_subtask.php" method="post">
                                 <div class="theme-description">
-                                    <input type="text" name="task-theme" placeholder="Тема задачи">
+                                    <input type="text" name="task-theme" placeholder="Тема задачи" required>
                                     <textarea name="task-description" placeholder="Описание"></textarea>
                                     <input type="hidden" name="taskId" value="<?php echo $taskId; ?>">
                                     <input type="submit" value="Добавить" class="cancel">
@@ -62,14 +81,17 @@
                                 <?php if (empty($subtasks)) echo '<h4 style="text-align: center; font-weight: bold; font-size: 24px;">Подзадач нет</h4>'; ?>
                                 <?php foreach ($subtasks as $subtask) {
                                     $class = $subtask['is_completed'] ? 'done' : 'low';
-                                    $is_completed = $subtask['is_completed'] ? 'Подзадача выполнена!' : 'Подзадача не выполнена!';
+                                    $is_completed = $subtask['is_completed'] ? 'Подзадача выполнена!' : $subtask['description'];
 
                                     echo '<div class="task__item"><div class="task task__' . $class . ' subtask"><div class="details__task">';
                                     echo '<h4 class="theme__task">' . $subtask['theme'] . '</h4><p class="description__task">' . $is_completed . '</p></div>';
-                                    if ($class = 'low') {
-                                        echo '<div><form action=""><input class="ok" type="button" value="Выполнить"></form></div></div></div>';
+                                    if ($is_completed) {
+                                        echo '<div><p class="date__task">' . $subtask['date_completed'] . '</p></div></div></div>';
                                     } else {
-                                        echo '<div><p class="date__task">' . $subtask['date_completed'] . '</p></div>';
+                                        echo '<div><form action="../functions/perform_subtask.php" method="post">
+                                        <input type="hidden" name="task_id" value="' . $taskId . '">
+                                        <input type="hidden" name="subtask_id" value="' . $subtask['id'] . '">
+                                        <input class="ok" type="submit" value="Выполнить"></form></div></div></div>';
                                     }
                                 } ?>
                             </div>
@@ -78,16 +100,16 @@
                 </div>
             </div>
 
+            <!------------------ EDIT TASK ------------------>
             <div id="EditTask" class="container-fluid tab-content">
                 <div class="container-fluid">
                     <div class="task__block">
-                        <h3 style="margin-left: 2rem; margin-bottom: 1rem; font-size: 24px; font-weight: bold;">Редактирование задачи</h3>
-                        <form action="">
+                        <form action="../functions/edit_task.php" method="post">
                             <div class="theme-description-priority">
                                 <div class="theme-description form">
                                     <?php
-                                    echo '<input type="text" name="subtask-theme" placeholder="Тема задачи" value="' . $task['name'] . '">';
-                                    echo '<textarea name="subtask-description" placeholder="Описание">' . $task['description'] . '</textarea>';
+                                    echo '<input type="text" name="name" placeholder="Тема задачи" value="' . $task['name'] . '" required>';
+                                    echo '<textarea name="description" placeholder="Описание">' . $task['description'] . '</textarea>';
                                     ?>
                                 </div>
                                 <div class="priority-date">
@@ -120,19 +142,21 @@
                                 </div>
                             </div>
                             <div class="progress-buttons">
-                                <div class="progress">
+                                <div class="progress tooltip">
+                                    <span class="tooltiptext"><?php echo floor($completedSubtasks) . '%'; ?></span>
                                     <h3 class="subtitle">Шкала прогресса</h3>
-                                    <progress value="10" max="100" class="scale"></progress>
+                                    <progress value="<?php echo $completedSubtasks; ?>" max="100" class="scale"></progress>
                                 </div>
                                 <div class="buttons">
-                                    <input type="button" value="Удалить" class="delete">
-                                    <input type="submit" value="Готово" class="ok">
+                                    <input type="hidden" name="task_id" value="<?php echo $taskId ?>">
+                                    <input type="submit" value="Сохранить" class="ok">
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+
         </section>
     </main>
 

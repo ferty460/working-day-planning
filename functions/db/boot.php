@@ -52,3 +52,29 @@ function getSubtasksByTaskId($taskId) {
     $stmt->execute(['id' => $taskId]);
     return $stmt->fetchAll();
 }
+
+function getSubtaskById($subtaskId) {
+    $stmt = pdo()->prepare("SELECT * FROM `subtasks` WHERE `id` = :id");
+    $stmt->execute(['id' => $subtaskId]);
+    return $stmt->fetch();
+}
+
+function getPercentageCompletedSubtasksInTask($taskId) {
+    // Получаем общее количество подзадач в задаче
+    $totalSubtasks = pdo()->prepare("SELECT COUNT(*) FROM `subtasks` WHERE `task` = :taskId");
+    $totalSubtasks->execute(['taskId' => $taskId]);
+    $total = $totalSubtasks->fetchColumn();
+
+    // Получаем количество выполненных подзадач
+    $completedSubtasks = pdo()->prepare("SELECT COUNT(*) FROM `subtasks` WHERE `is_completed` = :is_completed AND `task` = :taskId");
+    $completedSubtasks->execute([
+        'is_completed' => true,
+        'taskId' => $taskId,
+    ]);
+    $completed = $completedSubtasks->fetchColumn();
+
+    // Вычисляем процент выполненных подзадач
+    $percentage = $total == 0 ? 0 : ($completed / $total) * 100;
+
+    return $percentage;
+}

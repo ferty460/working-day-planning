@@ -14,7 +14,7 @@ function openTab(tabName, linkName) {
     }
     
     document.getElementById(linkName).classList.add("link-active");
-    document.getElementById(tabName).style.display = "flex";
+    document.getElementById(tabName).style.display = "block";
 }
 
 let subtaskLink = document.getElementById("SubtasksLink");

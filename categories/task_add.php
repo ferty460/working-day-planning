@@ -38,7 +38,7 @@
                     <div class="theme-description-priority">
                         <div class="theme-description form">
                             <input type="text" name="task-theme" placeholder="Тема задачи" required>
-                            <textarea name="task-description" placeholder="Описание" required></textarea>
+                            <textarea name="task-description" placeholder="Описание"></textarea>
                         </div>
                         <div class="priority-date">
                             <div class="task-priority">

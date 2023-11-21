@@ -13,6 +13,7 @@
 </head>
 
 <body>
+
     <?php
     require_once __DIR__.'/functions/db/boot.php';
 
@@ -28,6 +29,8 @@
         die();
     }
     ?>
+
+    <!------------------ HEADER ------------------>
     <header class="header">
         <nav>
             <div class="navbar">
@@ -52,7 +55,10 @@
     </header>
 
     <main class="main">
+
+        <!------------------ SIDE PANEL (CALENDAR, FOLDERS) ------------------>
         <section class="side-panel">
+
             <div class="calendar">
                 <div class="calendar-header">
                     <span id="currentMonth"></span>
@@ -76,6 +82,7 @@
                     <tbody id="calendarBody"></tbody>
                 </table>
             </div>
+
             <div class="other">
                 <div class="today">
                     <img src="assets/images/calendar.png" alt="today" class="today-img">
@@ -105,9 +112,12 @@
                     </div>
                 </div>
             </div>
+
         </section>
 
+        <!------------------ TASKS ------------------>
         <section class="content">
+
             <div class="option__panel">
                 <hr class="hr">
                 <div class="options">
@@ -138,6 +148,7 @@
                     echo '<div><p class="date__task">' . $task['date'] . '</p></div></div></a>';
                 } ?>
             </div>
+
         </section>
     </main>
 
