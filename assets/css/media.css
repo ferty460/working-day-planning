@@ -5,6 +5,7 @@
 
     .content {
         width: 100%;
+        margin-left: 0;
     }
 
     .side-panel {
@@ -16,6 +17,10 @@
 
     .calendar, .other {
         width: 30%;
+    }
+
+    .calendar-header {
+        width: 100%;
     }
 }
 

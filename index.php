@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/media.css">
     <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/calendar.css">
     <title>Рабочий стол | Worky✔</title>
 </head>
 
@@ -32,23 +33,39 @@
 
     <!------------------ HEADER ------------------>
     <header class="header">
-        <nav>
-            <div class="navbar">
-                <div class="container nav-container">
-                    <input class="checkbox" type="checkbox" />
-                    <div class="hamburger-lines">
-                        <span class="line line1"></span>
-                        <span class="line line2"></span>
-                        <span class="line line3"></span>
-                    </div>
-                    <div class="logo">
-                        <h1>worky✔</h1>
-                    </div>
-                    <div class="menu-items">
-                        <li><a href="index.php">Рабочий стол</a></li>
-                        <li><a href="categories/profile.php">Мой профиль</a></li>
-                        <li><form action="functions/do_logout.php" method="post"><button class="logout" type="submit">Выйти</button></form></li>
-                    </div>
+        <nav class="navbar">
+            <div class="container">
+
+                <div class="navbar-header">
+                    <button class="navbar-toggler" data-toggle="open-navbar1">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <a href="#">
+                        <h4>Worky<span>✔</span></h4>
+                    </a>
+                </div>
+
+                <div class="navbar-menu" id="open-navbar1">
+                    <ul class="navbar-nav">
+                        <li class="active"><a href="index.php">Рабочий стол</a></li>
+                        <li class="navbar-dropdown">
+                            <a href="#" class="dropdown-toggler" data-dropdown="my-dropdown-id">
+                                Мои папки <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown" id="my-dropdown-id">
+                                <li><a href="#">Actions</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="separator"></li>
+                                <li><a href="#">Seprated link</a></li>
+                                <li class="separator"></li>
+                                <li><a href="#">One more seprated link.</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="categories/profile.php">Профиль</a></li>
+                        <li><a href="#"><form action="functions/do_logout.php" method="post"><button type="submit">Выйти</button></form></a></li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -59,36 +76,14 @@
         <!------------------ SIDE PANEL (CALENDAR, FOLDERS) ------------------>
         <section class="side-panel">
 
-            <div class="calendar">
-                <div class="calendar-header">
-                    <span id="currentMonth"></span>
-                    <div class="month__buttons">
-                        <button id="prevMonth"><</button>
-                        <button id="nextMonth">></button>
-                    </div>
-                </div>
-                <table class="calendar-table">
-                    <thead>
-                        <tr>
-                            <th>Пн</th>
-                            <th>Вт</th>
-                            <th>Ср</th>
-                            <th>Чт</th>
-                            <th>Пт</th>
-                            <th class="weekend">Сб</th>
-                            <th class="weekend">Вс</th>
-                        </tr>
-                    </thead>
-                    <tbody id="calendarBody"></tbody>
-                </table>
-            </div>
+            <div class="calendar"></div>
 
             <div class="other">
                 <div class="today">
                     <img src="assets/images/calendar.png" alt="today" class="today-img">
                     <div class="details__today">
                         <h3>Сегодня:</h3>
-                        <p class="date"></p>
+                        <p class="date_"></p>
                     </div>
                 </div>
                 <div class="folders">
@@ -152,6 +147,7 @@
         </section>
     </main>
 
+    <script src="assets/js/header.js"></script>
     <script src="assets/js/calendar.js"></script>
 </body>
 

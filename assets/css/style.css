@@ -18,8 +18,9 @@ body {
 
 /* -------------- CONTENT -------------- */
 .content {
-    width: 70%;
+    width: 100%;
     margin-top: 0.5rem;
+    margin-left: 2rem;
 }
 
 .content .hr {
@@ -109,7 +110,7 @@ body {
 
 .task:hover {
     cursor: pointer;
-    transform: translateY(-5px) scale(1.001) ;
+    transform: translateY(-5px) scale(1.001);
 }
 
 .task__high {
@@ -153,43 +154,9 @@ body {
     width: 30%;
 }
 
-/* calendar */
-.calendar {
-    width: 80%;
-    text-align: center;
-}
-
-.calendar-header {
-    display: flex;
-    padding-left: 10px;
-    justify-content: space-between;
-}
-
-#currentMonth {
-    text-transform: capitalize;
-}
-
-.month__buttons {
-    margin-left: 2rem;
-}
-
-.calendar-table th,
-.calendar-table td {
-    padding: 10px;
-}
-
-.weekend {
-    font-weight: bold;
-    color: #DA2B2B;
-}
-
-.other-month {
-    color: #999;
-}
-
 /* other */
 .other {
-    width: 80%;
+    width: 100%;
     margin-top: 1rem;
     padding: 1rem;
     border: 2px solid #494949;
@@ -250,6 +217,7 @@ body {
 
 .task__section {
     width: 100%;
+    margin-top: 1rem;
 }
 
 .title__block {
@@ -467,7 +435,7 @@ body {
 }
 
 .options-tasks {
-    width: 100%; 
+    width: 100%;
     margin-left: 2rem;
 }
 
@@ -541,28 +509,28 @@ body {
 }
 
 .tooltip {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 50%; 
-  left: 50%;
-  margin-left: -60px;
-  opacity: 0;
-  transition: opacity 0.3s;
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 50%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
+    visibility: visible;
+    opacity: 1;
 }
