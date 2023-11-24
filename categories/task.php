@@ -97,6 +97,13 @@
                             </div>
                         </div>
                     </div>
+                    <div class="progress-buttons">
+                        <div class="progress tooltip" style="margin-right: 0;">
+                            <span class="tooltiptext"><?php echo floor($completedSubtasks) . '%'; ?></span>
+                            <h3 class="subtitle">Шкала прогресса</h3>
+                            <progress value="<?php echo $completedSubtasks; ?>" max="100" class="scale"></progress>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -156,10 +163,10 @@
                     </div>
                 </div>
             </div>
-
         </section>
     </main>
-
+    
+    <script src="../assets/js/header.js"></script>
     <script src="../assets/js/tabs.js"></script>
 </body>
 

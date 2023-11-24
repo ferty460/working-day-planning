@@ -33,12 +33,12 @@
                 <h1 class="title">Добавление папки</h1>
                 <hr class="line">
             </div>
-            <form action="" style="width: 100%;">
+            <form action="../functions/add_folder.php" method="post" style="width: 100%;">
                 <div class="center">
                     <div class="theme-description form" style="margin: 0 auto;">
                         <img src="../assets/images/folder.svg" alt="folder" class="folder-img">
-                        <input type="text" name="subtask-theme" placeholder="Тема задачи">
-                        <textarea name="subtask-description" placeholder="Описание"></textarea>
+                        <input type="text" name="theme" placeholder="Тема задачи">
+                        <textarea name="description" placeholder="Описание"></textarea>
                     </div>
                     <div class="block-buttons">
                         <div class="buttons" style="justify-content:center;">
@@ -50,6 +50,8 @@
             </form>
         </section>
     </main>
+    
+    <script src="../assets/js/header.js"></script>
 </body>
 
 </html>

@@ -3,7 +3,7 @@ course work at a technical school :(
 
 # Database
 
-    # working-day-planning
+    working-day-planning
 
     - User
     CREATE TABLE users (

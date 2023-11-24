@@ -1,3 +1,10 @@
+<?php
+
+require_once '../functions/db/boot.php';
+$folders = getAllFolders();
+
+?>
+
 <header class="header">
     <nav class="navbar">
         <div class="container">
@@ -21,12 +28,10 @@
                             Мои папки <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown" id="my-dropdown-id">
-                            <li><a href="#">Actions</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="separator"></li>
-                            <li><a href="#">Seprated link</a></li>
-                            <li class="separator"></li>
-                            <li><a href="#">One more seprated link.</a></li>
+                            <?php foreach ($folders as $folder) {
+                                echo '<li><a href="../categories/folder.php?id=' . $folder['id'] . '">' . $folder['theme'] . '</a></li>';
+                                echo '<li class="separator"></li>';
+                            } ?>
                         </ul>
                     </li>
                     <li><a href="../categories/profile.php">Профиль</a></li>

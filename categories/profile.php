@@ -53,6 +53,8 @@
             </div>
         </section>
     </main>
+    
+    <script src="../assets/js/header.js"></script>
 </body>
 
 </html>

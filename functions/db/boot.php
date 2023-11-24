@@ -78,3 +78,23 @@ function getPercentageCompletedSubtasksInTask($taskId) {
 
     return $percentage;
 }
+
+function getAllFolders() {
+    $stmt = pdo()->prepare("SELECT * FROM `folders` WHERE user = :user");
+    $stmt->execute([
+        'user' => $_SESSION['user_id'],
+    ]);
+    return $stmt->fetchAll();
+}
+
+function getTasksFromFolder($folder) {
+    $stmt = pdo()->prepare("SELECT * FROM `tasks` WHERE `folder` = :folder");
+    $stmt->execute(['folder' => $folder]);
+    return $stmt->fetchAll();
+}
+
+function getFolderById($folderId) {
+    $stmt = pdo()->prepare("SELECT * FROM `folders` WHERE `id` = :id");
+    $stmt->execute(['id' => $folderId]);
+    return $stmt->fetch();
+}

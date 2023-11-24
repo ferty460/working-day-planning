@@ -20,6 +20,7 @@
 
     $user = null;
     $tasks = getAllTasks();
+    $folders = getAllFolders();
 
     if (check_auth()) {
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
@@ -55,12 +56,10 @@
                                 Мои папки <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown" id="my-dropdown-id">
-                                <li><a href="#">Actions</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="separator"></li>
-                                <li><a href="#">Seprated link</a></li>
-                                <li class="separator"></li>
-                                <li><a href="#">One more seprated link.</a></li>
+                                <?php foreach ($folders as $folder) {
+                                    echo '<li><a href="categories/folder.php?id=' . $folder['id'] . '">' . $folder['theme'] . '</a></li>';
+                                    echo '<li class="separator"></li>';
+                                } ?>
                             </ul>
                         </li>
                         <li><a href="categories/profile.php">Профиль</a></li>
@@ -93,18 +92,11 @@
                             <p>+</p>
                         </div>
                     </a>
-                    <div class="folder">
-                        <img src="assets/images/folder.png" alt="folder">
-                        <h4>Проект 1</h4>
-                    </div>
-                    <div class="folder">
-                        <img src="assets/images/folder.png" alt="folder">
-                        <h4>Проект 2</h4>
-                    </div>
-                    <div class="folder">
-                        <img src="assets/images/folder.png" alt="folder">
-                        <h4>Проект 3</h4>
-                    </div>
+                    <?php if (empty($folders)) echo '<h3 style="font-size:18px;margin-top:1rem;text-align:center;">Папок нет</h3>'; ?>
+                    <?php foreach ($folders as $folder) {
+                        echo '<a href="categories/folder.php?id=' . $folder['id'] . '">';
+                        echo '<div class="folder"><img src="assets/images/folder.png" alt="folder"><h4>' . $folder['theme'] . '</h4></div></a>';
+                    } ?>
                 </div>
             </div>
 

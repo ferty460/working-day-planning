@@ -157,6 +157,7 @@ body {
 /* other */
 .other {
     width: 100%;
+    min-height: 250px;
     margin-top: 1rem;
     padding: 1rem;
     border: 2px solid #494949;
