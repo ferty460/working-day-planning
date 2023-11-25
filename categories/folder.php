@@ -16,11 +16,14 @@
     <?php
     require_once '../functions/db/boot.php';
 
+    $sort = isset($_GET['sort']) ? $_GET['sort'] : null;
+    
+    $tasks = getNearestTasks();
+
     $user = null;
     $folderId = $_GET['id'];
     $folder = getFolderById($folderId);
     $folderTasks = getTasksFromFolder($folderId);
-    $tasks = getAllTasks();
 
     if (check_auth()) {
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
@@ -51,7 +54,7 @@
             <div class="flex">
 
                 <!-------------------- FORM TO EDIT -------------------->
-                <form action="../functions/edit_folder.php" method="post" style="width: 30%;">
+                <form action="../functions/edit_folder.php" method="post">
                     <div class="theme-description">
                         <img src="../assets/images/folder.svg" alt="folder" class="folder-img">
                         <input type="text" name="theme" placeholder="Тема задачи" value="<?php echo $folder['theme'] ?>" required>
@@ -71,27 +74,27 @@
                         <div class="dropdown">
                             <form action="../functions/task_to_folder.php" method="post" id="myForm">
                                 <input type="hidden" name="folder_id" value="<?php echo $folderId; ?>">
-                                <select class="dropbtn" onchange="document.getElementById('myForm').submit()">
+                                <select onchange="document.getElementById('myForm').submit()" name="task_id">
                                     <option>--Добавить задачу--</option>
                                     <?php foreach ($tasks as $task) {
-                                        echo '<option value="' . $task['id'] . '" name="task_id">' . $task['name'] . '</option>';
+                                        echo '<option value="' . $task['id'] . '">' . $task['name'] . '</option>';
                                     } ?>
                                 </select>
                             </form>
-                            <div class="dropdown-content">
-                                <a href="#">Ссылка 1</a>
-                                <a href="#">Ссылка 2</a>
-                                <a href="#">Ссылка 3</a>
-                            </div>
                         </div>
                         <div class="block__sort">
                             <img src="../assets/images/sort.png" alt="sort" class="img__sort">
                             <div class="dropdown">
                                 <button class="dropbtn">Сортировка</button>
                                 <div class="dropdown-content">
-                                    <a href="#">Ссылка 1</a>
-                                    <a href="#">Ссылка 2</a>
-                                    <a href="#">Ссылка 3</a>
+                                    <a href=<?php echo "\"?id=$folderId"; ?>&sort=near">По дате &darr;</a>
+                                    <a href=<?php echo "\"?id=$folderId"; ?>&sort=far">По дате &uarr;</a>
+                                    <a href=<?php echo "\"?id=$folderId"; ?>&sort=a-z">По названию &darr;</a>
+                                    <a href=<?php echo "\"?id=$folderId"; ?>&sort=z-a">По названию &uarr;</a>
+                                    <a href=<?php echo "\"?id=$folderId"; ?>&sort=important">По важности &darr;</a>
+                                    <a href=<?php echo "\"?id=$folderId"; ?>&sort=unimportant">По важности &uarr;</a>
+                                    <a href=<?php echo "\"?id=$folderId"; ?>&sort=completed">Выполненные</a>
+                                    <a href=<?php echo "\"?id=$folderId"; ?>&sort=unfulfilled">Невыполненные</a>
                                 </div>
                             </div>
                         </div>

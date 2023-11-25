@@ -98,3 +98,65 @@ function getFolderById($folderId) {
     $stmt->execute(['id' => $folderId]);
     return $stmt->fetch();
 }
+
+function getTasksByDate($date) {
+    $stmt = pdo()->prepare("SELECT * FROM `tasks` WHERE user_id = :user_id AND date = :date");
+    $stmt->execute([
+        'user_id' => $_SESSION['user_id'],
+        'date' => $date
+    ]);
+    return $stmt->fetchAll();
+}
+
+function getMonthName($monthNumber) {
+    $fmt = new IntlDateFormatter('ru_RU', IntlDateFormatter::FULL, IntlDateFormatter::FULL, null, null, 'MMMM');
+    return $fmt->format(mktime(0, 0, 0, $monthNumber, 10));
+}
+
+function getNearestTasks() {
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE user_id = :user ORDER BY date ASC");
+    $stmt->execute(['user' => $_SESSION['user_id']]);
+    return $stmt->fetchAll();
+}
+
+function getFarestTasks() {
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE user_id = :user ORDER BY date DESC");
+    $stmt->execute(['user' => $_SESSION['user_id']]);
+    return $stmt->fetchAll();
+}
+
+function getA_ZTasks() {
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE user_id = :user ORDER BY name ASC");
+    $stmt->execute(['user' => $_SESSION['user_id']]);
+    return $stmt->fetchAll();
+}
+
+function getZ_ATasks() {
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE user_id = :user ORDER BY name DESC");
+    $stmt->execute(['user' => $_SESSION['user_id']]);
+    return $stmt->fetchAll();
+}
+
+function getHighToLowTasks() {
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE user_id = :user ORDER BY FIELD(priority, 'high', 'normal', 'low')");
+    $stmt->execute(['user' => $_SESSION['user_id']]);
+    return $stmt->fetchAll();
+}
+
+function getLowToHighTasks() {
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE user_id = :user ORDER BY FIELD(priority, 'low', 'normal', 'high')");
+    $stmt->execute(['user' => $_SESSION['user_id']]);
+    return $stmt->fetchAll();
+}
+
+function getCompletedTasks() {
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE user_id = :user ORDER BY FIELD(status, 1, 0)");
+    $stmt->execute(['user' => $_SESSION['user_id']]);
+    return $stmt->fetchAll();
+}
+
+function getUnfulfilledTasks() {
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE user_id = :user ORDER BY FIELD(status, 0, 1)");
+    $stmt->execute(['user' => $_SESSION['user_id']]);
+    return $stmt->fetchAll();
+}

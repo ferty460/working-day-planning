@@ -18,8 +18,18 @@
     <?php
     require_once __DIR__.'/functions/db/boot.php';
 
+    $sort = isset($_GET['sort']) ? $_GET['sort'] : null;
+    if ($sort == 'near') $tasks = getNearestTasks();
+    else if ($sort == 'far') $tasks = getFarestTasks();
+    else if ($sort == 'a-z') $tasks = getA_ZTasks();
+    else if ($sort == 'z-a') $tasks = getZ_ATasks();
+    else if ($sort == 'important') $tasks = getHighToLowTasks();
+    else if ($sort == 'unimportant') $tasks = getLowToHighTasks();
+    else if ($sort == 'completed') $tasks = getCompletedTasks();
+    else if ($sort == 'unfulfilled') $tasks = getUnfulfilledTasks();
+    else $tasks = getNearestTasks();
+
     $user = null;
-    $tasks = getAllTasks();
     $folders = getAllFolders();
 
     if (check_auth()) {
@@ -56,9 +66,9 @@
                                 Мои папки <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown" id="my-dropdown-id">
+                                <?php if (empty($folders)) echo '<li><a href="#">Папок нет</a></li>'; ?>
                                 <?php foreach ($folders as $folder) {
                                     echo '<li><a href="categories/folder.php?id=' . $folder['id'] . '">' . $folder['theme'] . '</a></li>';
-                                    echo '<li class="separator"></li>';
                                 } ?>
                             </ul>
                         </li>
@@ -82,7 +92,13 @@
                     <img src="assets/images/calendar.png" alt="today" class="today-img">
                     <div class="details__today">
                         <h3>Сегодня:</h3>
-                        <p class="date_"></p>
+                        <p class="date_">
+                            <?php 
+                            $fmt = new IntlDateFormatter('ru_RU', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+                            $fmt->setPattern('d MMMM, EEE');
+                            echo $fmt->format(new DateTime()); 
+                            ?>
+                        </p>
                     </div>
                 </div>
                 <div class="folders">
@@ -114,9 +130,14 @@
                         <div class="dropdown">
                             <button class="dropbtn">Сортировка</button>
                             <div class="dropdown-content">
-                                <a href="#">Ссылка 1</a>
-                                <a href="#">Ссылка 2</a>
-                                <a href="#">Ссылка 3</a>
+                                <a href="?sort=near">По дате &darr;</a>
+                                <a href="?sort=far">По дате &uarr;</a>
+                                <a href="?sort=a-z">По названию &darr;</a>
+                                <a href="?sort=z-a">По названию &uarr;</a>
+                                <a href="?sort=important">По важности &darr;</a>
+                                <a href="?sort=unimportant">По важности &uarr;</a>
+                                <a href="?sort=completed">Выполненные</a>
+                                <a href="?sort=unfulfilled">Невыполненные</a>
                             </div>
                         </div>
                     </div>

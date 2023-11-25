@@ -141,7 +141,8 @@
     position: absolute;
     top: 150%;
     left: 0;
-    background-color: #fff;
+    background-color: #ffffff;
+    border: 2px solid #929aad;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     min-width: 160px;
@@ -151,6 +152,10 @@
     z-index: 99999;
     border-radius: 0.75rem;
     display: none;
+}
+
+.navbar .navbar-menu .navbar-nav .navbar-dropdown .dropdown:hover {
+    background-color: #f1f1f1;
 }
 
 @media (max-width: 768px) {

@@ -61,6 +61,10 @@
 }
 
 @media (max-width: 600px) {
+    .flex > form {
+        width: 100%;
+    }
+
     .side-panel {
         width: 100%;
         flex-direction: column;

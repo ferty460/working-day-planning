@@ -28,9 +28,9 @@ $folders = getAllFolders();
                             Мои папки <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown" id="my-dropdown-id">
+                            <?php if (empty($folders)) echo '<li><a href="#">Папок нет</a></li>'; ?>
                             <?php foreach ($folders as $folder) {
                                 echo '<li><a href="../categories/folder.php?id=' . $folder['id'] . '">' . $folder['theme'] . '</a></li>';
-                                echo '<li class="separator"></li>';
                             } ?>
                         </ul>
                     </li>
