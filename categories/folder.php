@@ -15,15 +15,22 @@
 
     <?php
     require_once '../functions/db/boot.php';
-
-    $sort = isset($_GET['sort']) ? $_GET['sort'] : null;
     
     $tasks = getNearestTasks();
-
     $user = null;
     $folderId = $_GET['id'];
     $folder = getFolderById($folderId);
-    $folderTasks = getTasksFromFolder($folderId);
+
+    $sort = isset($_GET['sort']) ? $_GET['sort'] : null;
+    if ($sort == 'near') $folderTasks = getNearestTasksInFolder($folderId);
+    else if ($sort == 'far') $folderTasks = getFarestTasksInFolder($folderId);
+    else if ($sort == 'a-z') $folderTasks = getA_ZTasksInFolder($folderId);
+    else if ($sort == 'z-a') $folderTasks = getZ_ATasksInFolder($folderId);
+    else if ($sort == 'important') $folderTasks = getHighToLowTasksInFolder($folderId);
+    else if ($sort == 'unimportant') $folderTasks = getLowToHighTasksInFolder($folderId);
+    else if ($sort == 'completed') $folderTasks = getCompletedTasksInFolder($folderId);
+    else if ($sort == 'unfulfilled') $folderTasks = getUnfulfilledTasksInFolder($folderId);
+    else $folderTasks = getNearestTasksInFolder($folderId);
 
     if (check_auth()) {
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
@@ -87,14 +94,14 @@
                             <div class="dropdown">
                                 <button class="dropbtn">Сортировка</button>
                                 <div class="dropdown-content">
-                                    <a href=<?php echo "\"?id=$folderId"; ?>&sort=near">По дате &darr;</a>
-                                    <a href=<?php echo "\"?id=$folderId"; ?>&sort=far">По дате &uarr;</a>
-                                    <a href=<?php echo "\"?id=$folderId"; ?>&sort=a-z">По названию &darr;</a>
-                                    <a href=<?php echo "\"?id=$folderId"; ?>&sort=z-a">По названию &uarr;</a>
-                                    <a href=<?php echo "\"?id=$folderId"; ?>&sort=important">По важности &darr;</a>
-                                    <a href=<?php echo "\"?id=$folderId"; ?>&sort=unimportant">По важности &uarr;</a>
-                                    <a href=<?php echo "\"?id=$folderId"; ?>&sort=completed">Выполненные</a>
-                                    <a href=<?php echo "\"?id=$folderId"; ?>&sort=unfulfilled">Невыполненные</a>
+                                    <a href="<?php echo "?id=$folderId"; ?>&sort=near">По дате &darr;</a>
+                                    <a href="<?php echo "?id=$folderId"; ?>&sort=far">По дате &uarr;</a>
+                                    <a href="<?php echo "?id=$folderId"; ?>&sort=a-z">По названию &darr;</a>
+                                    <a href="<?php echo "?id=$folderId"; ?>&sort=z-a">По названию &uarr;</a>
+                                    <a href="<?php echo "?id=$folderId"; ?>&sort=important">По важности &darr;</a>
+                                    <a href="<?php echo "?id=$folderId"; ?>&sort=unimportant">По важности &uarr;</a>
+                                    <a href="<?php echo "?id=$folderId"; ?>&sort=completed">Выполненные</a>
+                                    <a href="<?php echo "?id=$folderId"; ?>&sort=unfulfilled">Невыполненные</a>
                                 </div>
                             </div>
                         </div>
@@ -106,7 +113,7 @@
                             $class = $task['status'] ? 'done' : $task['priority'];
                             $is_completed = $task['status'] ? 'Задача выполнена!' : 'Задача не выполнена!';
 
-                            echo '<a href="categories/task.php?id=' . $task['id'] . '">';
+                            echo '<a href="task.php?id=' . $task['id'] . '">';
                             echo '<div class="task task__' . $class . '">'; // high | normal | low | done
                             echo '<div class="details__task"><h4 class="theme__task">' . $task['name'] . '</h4>';
                             echo '<p class="description__task">' . $is_completed . '</p></div>';

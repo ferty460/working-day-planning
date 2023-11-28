@@ -154,8 +154,8 @@
     display: none;
 }
 
-.navbar .navbar-menu .navbar-nav .navbar-dropdown .dropdown:hover {
-    background-color: #f1f1f1;
+.navbar .navbar-menu .navbar-nav .navbar-dropdown .dropdown a:hover {
+    background-color: #eeeeee;
 }
 
 @media (max-width: 768px) {

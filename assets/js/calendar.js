@@ -155,7 +155,7 @@ function CalendarControl() {
                 let date = new Date(calendar.getFullYear(), calendar.getMonth(), j);
                 let month = date.getMonth() + 1;
                 let year = date.getFullYear();
-                let formattedDate = `${count}-${month}-${year}`;
+                let formattedDate = `${year}-${month}-${count}`;
                 
                 document.querySelector(
                     ".calendar .calendar-body"

@@ -6,7 +6,7 @@
     --weekdays-border-bottom-color: #404040;
     --calendar-date-hover-color: #919191;
     --calendar-current-date-color: #e6e6e6;
-    --calendar-today-color: linear-gradient(to bottom, #e6e6e6, #e6e6e6);
+    --calendar-today-color: #d1d1d1;
     --calendar-today-innerborder-color: transparent;
     --calendar-nextprev-bg-color: transparent;
     --next-prev-arrow-color: #494949;

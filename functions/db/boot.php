@@ -113,6 +113,60 @@ function getMonthName($monthNumber) {
     return $fmt->format(mktime(0, 0, 0, $monthNumber, 10));
 }
 
+function getNearestTasksInFolder($folderId) {
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE folder = :folder ORDER BY date ASC");
+    $stmt->execute(['folder' => $folderId]);
+    return $stmt->fetchAll();
+}
+
+function getFarestTasksInFolder($folderId) {
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE folder = :folder ORDER BY date DESC");
+    $stmt->execute(['folder' => $folderId]);
+    return $stmt->fetchAll();
+}
+
+function getA_ZTasksInFolder($folderId) {
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE folder = :folder ORDER BY name ASC");
+    $stmt->execute(['folder' => $folderId]);
+    return $stmt->fetchAll();
+}
+
+function getZ_ATasksInFolder($folderId) {
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE folder = :folder ORDER BY name DESC");
+    $stmt->execute(['folder' => $folderId]);
+    return $stmt->fetchAll();
+}
+
+function getHighToLowTasksInFolder($folderId) {
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE folder = :folder ORDER BY FIELD(priority, 'high', 'normal', 'low')");
+    $stmt->execute(['folder' => $folderId]);
+    return $stmt->fetchAll();
+}
+
+function getLowToHighTasksInFolder($folderId) {
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE folder = :folder ORDER BY FIELD(priority, 'low', 'normal', 'high')");
+    $stmt->execute(['folder' => $folderId]);
+    return $stmt->fetchAll();
+}
+
+function getCompletedTasksInFolder($folderId) {
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE folder = :folder AND status = :status");
+    $stmt->execute([
+        'folder' => $folderId,
+        'status' => true
+    ]);
+    return $stmt->fetchAll();
+}
+
+function getUnfulfilledTasksInFolder($folderId) {
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE folder = :folder AND status = :status");
+    $stmt->execute([
+        'folder' => $folderId,
+        'status' => false
+    ]);
+    return $stmt->fetchAll();
+}
+
 function getNearestTasks() {
     $stmt = pdo()->prepare("SELECT * FROM tasks WHERE user_id = :user ORDER BY date ASC");
     $stmt->execute(['user' => $_SESSION['user_id']]);
@@ -150,13 +204,19 @@ function getLowToHighTasks() {
 }
 
 function getCompletedTasks() {
-    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE user_id = :user ORDER BY FIELD(status, 1, 0)");
-    $stmt->execute(['user' => $_SESSION['user_id']]);
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE user_id = :user AND status = :status");
+    $stmt->execute([
+        'user' => $_SESSION['user_id'],
+        'status' => true
+    ]);
     return $stmt->fetchAll();
 }
 
 function getUnfulfilledTasks() {
-    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE user_id = :user ORDER BY FIELD(status, 0, 1)");
-    $stmt->execute(['user' => $_SESSION['user_id']]);
+    $stmt = pdo()->prepare("SELECT * FROM tasks WHERE user_id = :user AND status = :status");
+    $stmt->execute([
+        'user' => $_SESSION['user_id'],
+        'status' => false
+    ]);
     return $stmt->fetchAll();
 }

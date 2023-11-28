@@ -42,7 +42,7 @@
                     </div>
                     <div class="block-buttons">
                         <div class="buttons" style="justify-content:center;">
-                            <input type="button" value="Отмена" class="cancel_ok">
+                            <input type="button" value="Отмена" class="cancel_ok" onclick="window.history.back()">
                             <input type="submit" value="Готово" class="ok">
                         </div>
                     </div>

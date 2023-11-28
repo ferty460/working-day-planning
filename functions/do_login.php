@@ -2,11 +2,13 @@
 
 require_once __DIR__.'/db/boot.php';
 
-// проверяем наличие пользователя с указанным юзернеймом
-$stmt = pdo()->prepare("SELECT * FROM `users` WHERE `username` = :username");
-$stmt->execute(['username' => $_POST['username']]);
+// проверяем наличие пользователя с указанными данными
+$stmt = pdo()->prepare("SELECT * FROM `users` WHERE `email` = :email");
+$stmt->execute([
+    'email' => $_POST['email'],
+]);
 if (!$stmt->rowCount()) {
-    flash('Пользователь с такими данными не зарегистрирован');
+    flash('Неверный email или пароль!');
     header("Location: {$_SERVER['HTTP_REFERER']}"); 
     die;
 }
@@ -29,5 +31,5 @@ if (password_verify($_POST['password'], $user['password'])) {
     die;
 }
 
-flash('Пароль неверен');
+flash('Неверный email или пароль!');
 header("Location: {$_SERVER['HTTP_REFERER']}"); 

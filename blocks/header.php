@@ -22,7 +22,7 @@ $folders = getAllFolders();
 
             <div class="navbar-menu" id="open-navbar1">
                 <ul class="navbar-nav">
-                    <li class="active"><a href="../index.php">Рабочий стол</a></li>
+                    <li><a href="../index.php">Рабочий стол</a></li>
                     <li class="navbar-dropdown">
                         <a href="#" class="dropdown-toggler" data-dropdown="my-dropdown-id">
                             Мои папки <i class="fa fa-angle-down"></i>
