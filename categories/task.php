@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../assets/css/media.css">
     <link rel="stylesheet" href="../assets/css/tabs.css">
     <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
     <title>Задача | Worky✔</title>
 </head>
 
@@ -165,6 +166,7 @@
             </div>
         </section>
     </main>
+    <?php include "../blocks/footer.php" ?>
     
     <script src="../assets/js/header.js"></script>
     <script src="../assets/js/tabs.js"></script>

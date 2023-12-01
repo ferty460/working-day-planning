@@ -1,0 +1,371 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Общие стили */
+* {
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+    font-weight: 400;
+    margin-top: 1rem;
+}
+
+.container {
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+p {
+    color: #6A859C;
+    line-height: 1.8;
+}
+
+.title {
+    margin-bottom: 17px;
+    font-size: 30px;
+    line-height: 1.2;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #676770;
+}
+
+.subtitle {
+    font-size: 17px;
+    line-height: 1.2;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #8e8e9c;
+}
+
+.title-wrapper {
+    margin-bottom: 60px;
+}
+
+.common-section {
+    text-align: center;
+    padding: 80px 0;
+}
+
+.common-section__dark {
+    background-color: #192024;
+}
+.common-section__dark * {
+    color: #fff;
+}
+.common-section__dark .subtitle {
+    color: #e8e8e8;
+}
+
+.hide {
+    display: none !important;
+}
+
+/* -------------- WELCOME -------------- */
+
+.welcome {
+    min-height: 600px;
+    height: 100vh;
+    padding: 195px 0;
+    margin: 0 2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #494949;
+    text-align: center;
+
+    background-color: #ffffff;
+    background-size: cover;
+    background-position: center;
+    border-bottom: 1px solid #c4c4c4;
+}
+
+.welcome__block {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.welcome__head {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.welcome__heading {
+    margin-bottom: 40px;
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.welcome__desc {
+    margin: 0 auto;
+    width: 60%;
+}
+
+.welcome__img {
+    width: 300px;
+}
+
+.welcome__links {
+    margin-top: 20px;
+}
+
+.welcome__links > * + * {
+    margin-left: 20px;
+}
+
+.link-primary {
+    display: inline-block;
+    padding: 11px 30px;
+
+    font-size: 16px;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    background-color: #6989ff;
+    border-radius: 4px;
+
+    transition: background-color 0.1s;
+}
+.link-primary:hover {
+    background-color: #7cc2ff;
+}
+.link-primary:active {
+    background-color: #0f8fff;
+}
+
+.link {
+    display: inline-block;
+    padding: 10px 30px;
+
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: #494949;
+    text-transform: uppercase;
+
+    border: 1px solid #fff;
+    border-radius: 4px;
+
+    transition: border-color 0.1s, background-color 0.1s;
+}
+.link:hover {
+    background-color: rgba(226, 226, 226, 0.2);
+    border-color: rgba(44, 44, 44, 0.5);
+}
+.link:active {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-color: rgba(0, 0, 0, 0.5);
+}
+
+/* -------------- ABOUT (WHAT WE DO) -------------- */
+
+.about .cards-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.about .card {
+    padding: 25px 15px;
+    max-width: 300px;
+
+    border: 1px solid #dcebf7;
+    border-radius: 5px;
+}
+
+.about .card img {
+    margin-bottom: 20px;
+
+    width: 94px;
+    height: 94px;
+    object-fit: contain;
+}
+
+.about .card h4 {
+    margin-bottom: 15px;
+
+    font-size: 20px;
+    line-height: 1.5;
+    letter-spacing: 7px;
+    text-transform: uppercase;
+    color: #676770;
+}
+
+/* -------------- SERVICES -------------- */
+
+.services .cards-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.services .card {
+    width: 45%;
+}
+
+.services .card img {
+    margin-bottom: 20px;
+}
+
+.services .card h4 {
+    margin-bottom: 20px;
+
+    font-size: 20px;
+    line-height: 1.5;
+    letter-spacing: 7px;
+    text-transform: uppercase;
+}
+
+.services .link {
+    margin-top: 15px;
+}
+
+/* -------------- TABS -------------- */
+
+.tabs__nav {
+    margin-bottom: 50px;
+}
+
+.tabs__nav button {
+    padding: 0 30px;
+
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+
+    background-color: #92a0ad;
+    border-radius: 4px;
+}
+
+.tabs__nav button.active {
+    background-color: #2e80b6;
+}
+
+.tabs__nav button + button {
+    margin-left: 15px;
+}
+
+.tabs__item {
+    animation: fade 1s;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0.3;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.tabs__item img {
+    margin-bottom: 15px;
+}
+
+.tabs__item h4 {
+    margin-bottom: 15px;
+
+    font-size: 32px;
+    line-height: 1;
+    color: #676770;
+}
+.tabs__desc {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/* -------------- MEDIA -------------- */
+
+@media (max-width: 829px) {
+    .footer__desc-container {
+        justify-content: space-evenly;
+    }
+
+    .footer__desc h4 {
+        margin-bottom: 15px;
+    }
+
+    .footer__desc {
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 660px) {
+    .tabs__nav {
+        margin-bottom: 30px;
+    }
+
+    .tabs__nav button {
+        display: block;
+        margin: 0 auto;
+        padding: 10px 30px;
+    }
+
+    .tabs__nav button + button {
+        margin-top: 15px;
+        margin-left: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .services .cards-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .services .card {
+        width: 80%;
+    }
+
+    .title-wrapper {
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 400px) {
+    .header__nav li + li {
+        margin-left: 15px;
+    }
+
+    .welcome__heading {
+        font-size: 42px;
+        margin-bottom: 50px;
+    }
+
+    .welcome__links a {
+        display: block;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .welcome__links > * + * {
+        margin: 0;
+        margin-top: 20px;
+    }
+
+    body {
+        font-size: 12px;
+    }
+
+    .about .card h4 {
+        font-size: 16px;
+    }
+
+    .services .card h4 {
+        font-size: 16px;
+    }
+
+    .services .card .link {
+        font-size: 14px;
+    }
+
+    .tabs__item h4 {
+        font-size: 24px;
+    }
+}

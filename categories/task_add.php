@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/media.css">
     <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
     <title>Добавление задачи | Worky✔</title>
 </head>
 
@@ -65,7 +66,7 @@
                                 </div>
                             </div>
                             <div class="date">
-                                <input type="date" name="date">
+                                <input type="date" name="date" required>
                             </div>
                         </div>
                     </div>
@@ -79,6 +80,7 @@
             </div>
         </section>
     </main>
+    <?php include "../blocks/footer.php" ?>
     
     <script src="../assets/js/header.js"></script>
 </body>

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/media.css">
     <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
     <title>Профиль | Worky✔</title>
 </head>
 
@@ -53,6 +54,7 @@
             </div>
         </section>
     </main>
+    <?php include "../blocks/footer.php" ?>
     
     <script src="../assets/js/header.js"></script>
 </body>

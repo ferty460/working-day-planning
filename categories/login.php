@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/media.css">
     <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
     <title>Авторизация | Worky✔</title>
 </head>
 
@@ -20,6 +21,7 @@
         die;
     }
     ?>
+    <?php include "../blocks/header.php" ?>
     <main class="main">
         <section class="task__section">
             <div class="login" style="text-align: center;">
@@ -42,6 +44,7 @@
             </div>
         </section>
     </main>
+    <?php include "../blocks/footer.php" ?>
 </body>
 
 </html>
