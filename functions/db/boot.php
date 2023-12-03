@@ -2,6 +2,7 @@
 
 session_start();
 
+// PDO
 function pdo(): PDO {
     static $pdo;
 
@@ -16,6 +17,7 @@ function pdo(): PDO {
     return $pdo;
 }
 
+// flash messages
 function flash(?string $message = null) {
     if ($message) {
         $_SESSION['flash'] = $message;
@@ -33,6 +35,7 @@ function check_auth(): bool {
     return !!($_SESSION['user_id'] ?? false);
 }
 
+// USEFULL FUNCTIONS
 function getAllTasks() {
     $stmt = pdo()->prepare("SELECT * FROM `tasks` WHERE user_id = :user_id");
     $stmt->execute([
@@ -113,6 +116,7 @@ function getMonthName($monthNumber) {
     return $fmt->format(mktime(0, 0, 0, $monthNumber, 10));
 }
 
+// TASKS IN FOLDER SORT
 function getNearestTasksInFolder($folderId) {
     $stmt = pdo()->prepare("SELECT * FROM tasks WHERE folder = :folder ORDER BY date ASC");
     $stmt->execute(['folder' => $folderId]);
@@ -167,6 +171,7 @@ function getUnfulfilledTasksInFolder($folderId) {
     return $stmt->fetchAll();
 }
 
+// TASKS SORT
 function getNearestTasks() {
     $stmt = pdo()->prepare("SELECT * FROM tasks WHERE user_id = :user ORDER BY date ASC");
     $stmt->execute(['user' => $_SESSION['user_id']]);

@@ -2,6 +2,13 @@
 
 require_once __DIR__.'/db/boot.php';
 
+// Проверка капчи
+if($_POST["captcha_code"] != $_SESSION["captcha_code"]) {
+    flash("Вы робот или введите капчу еще раз");
+    header("Location: {$_SERVER['HTTP_REFERER']}");
+    die;
+}
+
 // проверяем наличие пользователя с указанными данными
 $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `email` = :email");
 $stmt->execute([

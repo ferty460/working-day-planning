@@ -2,7 +2,7 @@
 
 require_once __DIR__. '/db/boot.php';
 
-// Добавим задачу пользователю
+// Добавим проект (папку) пользователю
 $stmt = pdo()->prepare("INSERT INTO `folders` (`theme`, `description`, `user`) VALUES (:theme, :description, :user)");
 $stmt->execute([
     'theme' => $_POST['theme'],

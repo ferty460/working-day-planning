@@ -13,6 +13,7 @@
 </head>
 
 <body>
+
     <?php
     require_once '../functions/db/boot.php';
 
@@ -27,11 +28,15 @@
         header("Location: login.php");
         die();
     }
+
+    include "../blocks/header.php"; 
     ?>
-    <?php include "../blocks/header.php" ?>
+    
     <main class="main">
         <section class="task__section">
             <div class="flex">
+
+                <!-------------------- PROFILE DETAILS -------------------->
                 <div class="profile">
                     <img src="../assets/images/profile.svg" alt="profile" class="profile-img">
                     <div class="user-details">
@@ -39,6 +44,8 @@
                         <h5 class="email"><?php echo $_SESSION['user_email'] ?></h5>
                     </div>
                 </div>
+
+                <!-------------------- TASKS -------------------->
                 <div class="tasks">
                 <?php foreach ($tasks as $task) {
                     $class = $task['status'] ? 'done' : $task['priority'];
@@ -51,9 +58,11 @@
                     echo '<div><p class="date__task">' . $task['date'] . '</p></div></div></a>';
                 } ?>
                 </div>
+
             </div>
         </section>
     </main>
+
     <?php include "../blocks/footer.php" ?>
     
     <script src="../assets/js/header.js"></script>

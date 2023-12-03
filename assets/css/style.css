@@ -5,14 +5,30 @@
     color: #494949;
 }
 
+html {
+    height: 100%;
+}
+
 body {
+    height: 100%;
     margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    margin-top: auto;
+}
+
+.container {
+    flex: 0 0 auto;
 }
 
 .main {
     display: flex;
     flex-direction: row;
     margin: 0 2rem;
+    margin-bottom: 50px;
 }
 
 /* -------------- CONTENT -------------- */
@@ -546,4 +562,15 @@ select {
 
 .flex > form {
     width: 30%;
+}
+
+.captcha {
+    border: 1px solid #494949;
+    border-radius: 10px;
+    margin-bottom: .5rem;
+    width: 100%;
+}
+
+.or_link:hover {
+    text-decoration: underline;
 }

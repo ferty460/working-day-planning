@@ -1,8 +1,4 @@
-<?php
-
-require_once '../functions/db/boot.php';
-
-?>
+<?php require_once '../functions/db/boot.php'; ?>
 
 <footer class="footer" id="footer">
     <div class="footer__copy">

@@ -13,11 +13,11 @@
 </head>
 
 <body>
+
     <?php
     require_once '../functions/db/boot.php';
 
     $user = null;
-
     if (check_auth()) {
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
         $stmt->execute(['id' => $_SESSION['user_id']]);
@@ -26,8 +26,10 @@
         header("Location: login.php");
         die();
     }
+
+    include "../blocks/header.php"; 
     ?>
-    <?php include "../blocks/header.php" ?>
+
     <main class="main">
         <section class="task__section">
             <div class="title__block">
@@ -36,21 +38,27 @@
             </div>
             <form action="../functions/add_folder.php" method="post" style="width: 100%;">
                 <div class="center">
+
+                    <!-------------------- THEME AND DESCRIPTION -------------------->
                     <div class="theme-description form" style="margin: 0 auto;">
                         <img src="../assets/images/folder.svg" alt="folder" class="folder-img">
                         <input type="text" name="theme" placeholder="Тема задачи">
                         <textarea name="description" placeholder="Описание"></textarea>
                     </div>
+
+                    <!-------------------- BUTTONS -------------------->
                     <div class="block-buttons">
                         <div class="buttons" style="justify-content:center;">
                             <input type="button" value="Отмена" class="cancel_ok" onclick="window.history.back()">
                             <input type="submit" value="Готово" class="ok">
                         </div>
                     </div>
+                    
                 </div>
             </form>
         </section>
     </main>
+
     <?php include "../blocks/footer.php" ?>
     
     <script src="../assets/js/header.js"></script>

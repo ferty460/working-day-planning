@@ -16,13 +16,14 @@
 
     <?php
     require_once '../functions/db/boot.php';
-    
+
     $tasks = getNearestTasks();
     $user = null;
     $folderId = $_GET['id'];
     $folder = getFolderById($folderId);
 
-    $sort = isset($_GET['sort']) ? $_GET['sort'] : null;
+    // получаем get для сортировки, если оно было отправлено
+    $sort = isset($_GET['sort']) ? $_GET['sort'] : null; 
     if ($sort == 'near') $folderTasks = getNearestTasksInFolder($folderId);
     else if ($sort == 'far') $folderTasks = getFarestTasksInFolder($folderId);
     else if ($sort == 'a-z') $folderTasks = getA_ZTasksInFolder($folderId);
@@ -41,9 +42,9 @@
         header("Location: login.php");
         die();
     }
-    ?>
 
-    <?php include "../blocks/header.php" ?>
+    include "../blocks/header.php"; 
+    ?>
 
     <main class="main">
         <section class="task__section">
@@ -126,7 +127,7 @@
         </section>
     </main>
     <?php include "../blocks/footer.php" ?>
-    
+
     <script src="../assets/js/header.js"></script>
 </body>
 

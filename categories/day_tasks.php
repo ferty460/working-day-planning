@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    
     <?php
     require_once '../functions/db/boot.php';
 
@@ -31,30 +32,36 @@
         header("Location: login.php");
         die();
     }
+
+    include "../blocks/header.php";
     ?>
-    <?php include "../blocks/header.php" ?>
+
     <main class="main">
         <section class="task__section">
             <h2 class="title" style="text-align: center;"> Задачи на <?php echo "$day $month $year"; ?> года</h2>
             <div class="flex">
+
+                <!-------------------- TASKS -------------------->
                 <div class="tasks">
-                <?php if (empty($tasks)) echo '<h3 style="font-size:18px;margin-top:1rem;text-align:center;">Задач нет</h3>'; ?>
-                <?php foreach ($tasks as $task) {
-                    $class = $task['status'] ? 'done' : $task['priority'];
-                    $is_completed = $task['status'] ? 'Задача выполнена!' : 'Задача не выполнена!';
-                    
-                    echo '<a href="categories/task.php?id=' . $task['id'] . '">';
-                    echo '<div class="task task__' . $class . '">'; // high | normal | low | done
-                    echo '<div class="details__task"><h4 class="theme__task">' . $task['name'] . '</h4>';
-                    echo '<p class="description__task">' . $is_completed . '</p></div>';
-                    echo '<div><p class="date__task">' . $task['date'] . '</p></div></div></a>';
-                } ?>
+                    <?php if (empty($tasks)) echo '<h3 style="font-size:18px;margin-top:1rem;text-align:center;">Задач нет</h3>'; ?>
+                    <?php foreach ($tasks as $task) {
+                        $class = $task['status'] ? 'done' : $task['priority'];
+                        $is_completed = $task['status'] ? 'Задача выполнена!' : 'Задача не выполнена!';
+
+                        echo '<a href="categories/task.php?id=' . $task['id'] . '">';
+                        echo '<div class="task task__' . $class . '">'; // high | normal | low | done
+                        echo '<div class="details__task"><h4 class="theme__task">' . $task['name'] . '</h4>';
+                        echo '<p class="description__task">' . $is_completed . '</p></div>';
+                        echo '<div><p class="date__task">' . $task['date'] . '</p></div></div></a>';
+                    } ?>
                 </div>
+                
             </div>
         </section>
     </main>
+
     <?php include "../blocks/footer.php" ?>
-    
+
     <script src="../assets/js/header.js"></script>
 </body>
 

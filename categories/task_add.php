@@ -13,6 +13,7 @@
 </head>
 
 <body>
+
     <?php
     require_once '../functions/db/boot.php';
 
@@ -26,8 +27,10 @@
         header("Location: login.php");
         die();
     }
+    
+    include "../blocks/header.php";
     ?>
-    <?php include "../blocks/header.php" ?>
+
     <main class="main">
         <section class="task__section">
             <div class="title__block">
@@ -37,10 +40,14 @@
             <div class="task__block">
                 <form action="../functions/add_task.php" method="post">
                     <div class="theme-description-priority">
+
+                        <!-------------------- THEME AND DESCRIPTION -------------------->
                         <div class="theme-description form">
                             <input type="text" name="task-theme" placeholder="Тема задачи" required>
                             <textarea name="task-description" placeholder="Описание"></textarea>
                         </div>
+
+                        <!-------------------- PRIORITY AND DATE -------------------->
                         <div class="priority-date">
                             <div class="task-priority">
                                 <h3 class="subtitle">Приоритет задачи</h3>
@@ -65,11 +72,15 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="date">
                                 <input type="date" name="date" required>
                             </div>
                         </div>
+
                     </div>
+
+                    <!-------------------- BUTTONS -------------------->
                     <div class="block-buttons">
                         <div class="buttons">
                             <input type="button" value="Отмена" class="cancel_ok" onclick="window.history.back()">
