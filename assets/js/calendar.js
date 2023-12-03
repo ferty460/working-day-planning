@@ -6,7 +6,7 @@ function formatDateInRussian() {
         'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
     ];
 
-    const daysOfWeek = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
+    const daysOfWeek = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 
     const date = new Date();
     const day = date.getDate();
@@ -26,7 +26,7 @@ function CalendarControl() {
     const calendarControl = {
         localDate: new Date(),
         prevMonthLastDate: null,
-        calWeekDays: ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"],
+        calWeekDays: ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"],
         calMonthName: [
             "Январь",
             "Февраль",
@@ -51,10 +51,10 @@ function CalendarControl() {
             return new Date(calendar.getFullYear(), calendar.getMonth() + 1, 0);
         },
         firstDayNumber: function () {
-            return calendarControl.firstDay().getDay() + 1;
+            return calendarControl.firstDay().getDay() === 0 ? 7 : calendarControl.firstDay().getDay();
         },
         lastDayNumber: function () {
-            return calendarControl.lastDay().getDay() + 1;
+            return calendarControl.lastDay().getDay() === 0 ? 7 : calendarControl.lastDay().getDay();
         },
         getPreviousMonthLastDate: function () {
             let lastDate = new Date(
