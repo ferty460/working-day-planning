@@ -1,7 +1,7 @@
 <?php
 
 require_once '../functions/db/boot.php';
-$folders = getAllFolders();
+if (isset($_SESSION['user_id'])) $folders = getAllFolders();
 
 ?>
 
@@ -22,7 +22,7 @@ $folders = getAllFolders();
 
             <div class="navbar-menu" id="open-navbar1">
                 <ul class="navbar-nav">
-                    <?php if ($_SESSION['user_id'] != null) { ?>
+                    <?php if (isset($_SESSION['user_id'])) { ?>
                         <li><a href="../index.php">Рабочий стол</a></li>
                         <li class="navbar-dropdown">
                             <a href="#" class="dropdown-toggler" data-dropdown="my-dropdown-id">
