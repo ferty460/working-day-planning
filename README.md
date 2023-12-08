@@ -13,7 +13,9 @@ course work at a technical school :(
         lastname VARCHAR(255) NULL,
         password VARCHAR(255),
         email VARCHAR(255),
-        role VARCHAR(255)
+        role ENUM('user', 'admin'),
+        employer_id INT NULL,
+        FOREIGN KEY (employer_id) REFERENCES users(id)
     );
 
     - Folder

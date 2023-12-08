@@ -18,7 +18,9 @@
     require_once '../functions/db/boot.php';
 
     $user = null;
-    $tasks = getAllTasks();
+    $users = getUserList();
+    $employees = getEmployeesList($_SESSION['user_id']);
+    $employer = getEmployerById($_SESSION['user_id']);
 
     if (check_auth()) {
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
@@ -46,32 +48,36 @@
                     </div>
                 </div>
 
-                <div class="tasks">
-                    <!-------------------- EMPLOYERS -------------------->
-                    <form action="../functions/task_to_folder.php" method="post" id="myForm">
+                <div class="title__block">
+                    <?php if ($_SESSION['user_role'] === 'admin') { ?>
+                        <!-------------------- EMPLOYERS -------------------->
+                        <form action="../functions/add_employee.php" method="post" id="myForm">
+                            <div>
+                                <select onchange="document.getElementById('myForm').submit()" name="user_id">
+                                    <option>--Добавить работника--</option>
+                                    <?php foreach ($users as $user) {
+                                        echo '<option value="' . $user['id'] . '">' . $user['surname'] . ' ' . $user['name'] . ' ' . $user['lastname'] . '</option>';
+                                    } ?>
+                                </select>
+                                <input type="hidden" name="my_id" value="<?php echo $_SESSION['user_id']; ?>">
+                            </div>
+                        </form>
+
+                        <!-------------------- TASKS -------------------->
                         <div>
-                            <select onchange="document.getElementById('myForm').submit()" name="task_id">
-                                <option>--Добавить работодателя--</option>
-                                <?php foreach ($tasks as $task) {
-                                    echo '<option value="' . $task['id'] . '">' . $task['name'] . '</option>';
-                                } ?>
-                            </select>
+                            <h3 class="title">Мои подписечники</h3>
+                            <?php foreach ($employees as $employee) { ?>
+                                <p><?php echo $employee['surname'] . ' ' . $employee['name'] . ' ' . $employee['lastname']; ?></p>
+                            <?php } ?>
                         </div>
-                    </form>
+                    <?php } ?>
 
-                    <!-------------------- TASKS -------------------->
-                    <div>
-                        <?php foreach ($tasks as $task) {
-                            $class = $task['status'] ? 'done' : $task['priority'];
-                            $is_completed = $task['status'] ? 'Задача выполнена!' : 'Задача не выполнена!';
-
-                            echo '<a href="categories/task.php?id=' . $task['id'] . '">';
-                            echo '<div class="task task__' . $class . '">'; // high | normal | low | done
-                            echo '<div class="details__task"><h4 class="theme__task">' . $task['name'] . '</h4>';
-                            echo '<p class="description__task">' . $is_completed . '</p></div>';
-                            echo '<div><p class="date__task">' . $task['date'] . '</p></div></div></a>';
-                        } ?>
-                    </div>
+                    <?php if ($_SESSION['user_role'] === 'user') { ?>
+                        <div>
+                            <h3 class="title">Мой работодатель</h3>
+                            <p><?php echo $employer['surname'] . ' ' . $employer['name'] . ' ' . $employer['lastname']; ?></p>
+                        </div>
+                    <?php } ?>
                 </div>
 
             </div>

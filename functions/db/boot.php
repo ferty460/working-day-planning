@@ -225,3 +225,21 @@ function getUnfulfilledTasks() {
     ]);
     return $stmt->fetchAll();
 }
+
+function getUserList() {
+    $stmt = pdo()->prepare("SELECT * FROM users WHERE role = :role");
+    $stmt->execute(['role' => 'user']);
+    return $stmt->fetchAll();
+}
+
+function getEmployeesList($id) {
+    $stmt = pdo()->prepare("SELECT * FROM users WHERE employer_id = :id");
+    $stmt->execute(['id' => $id]);
+    return $stmt->fetchAll();
+}
+
+function getEmployerById($id) {
+    $stmt = pdo()->prepare("SELECT * FROM users WHERE id IN (SELECT employer_id FROM users WHERE id = :id);");
+    $stmt->execute(['id' => $id]);
+    return $stmt->fetch();
+}
