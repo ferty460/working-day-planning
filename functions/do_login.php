@@ -25,15 +25,20 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 if (password_verify($_POST['password'], $user['password'])) {
     if (password_needs_rehash($user['password'], PASSWORD_DEFAULT)) {
         $newHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $stmt = pdo()->prepare('UPDATE `users` SET `password` = :password WHERE `username` = :username');
+        $stmt = pdo()->prepare('UPDATE `users` SET `password` = :password WHERE `email` = :email');
         $stmt->execute([
-            'username' => $_POST['username'],
+            'email' => $_POST['email'],
             'password' => $newHash,
         ]);
     }
+
     $_SESSION['user_id'] = $user['id'];
-    $_SESSION['user_name'] = $user['username'];
+    $_SESSION['user_name'] = $user['name'];
+    $_SESSION['user_surname'] = $user['surname'];
+    $_SESSION['user_lastname'] = $user['lastname'];
     $_SESSION['user_email'] = $user['email'];
+    $_SESSION['user_role'] = $user['role'];
+    
     header('Location: ../main.php');
     die;
 }

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="assets/css/header.css">
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/calendar.css">
-    <title>Дом | Рабочий стол | Worky✔</title>
+    <title>Работа | Рабочий стол | Worky✔</title>
 </head>
 
 <body>
@@ -67,8 +67,8 @@
                                     Рабочий стол <i class="fa fa-angle-down"></i>
                                 </a>
                                 <ul class="dropdown" id="my-dropdown-id">
-                                    <li><a href="work.php">Работа</a></li>
-                                    <li class="active"><a href="index.php">Дом</a></li>
+                                    <li class="active"><a href="work.php">Работа</a></li>
+                                    <li><a href="index.php">Дом</a></li>
                                 </ul>
                             </li>
                             <li><a href="categories/profile.php">Профиль</a></li>
@@ -129,7 +129,7 @@
             <div class="option__panel">
                 <hr class="hr">
                 <div class="options">
-                    <a href="categories/task_add.php" class="add__task">+ Добавить задачу</a>
+                    <div></div>
                     <div class="block__sort">
                         <img src="assets/images/sort.png" alt="sort" class="img__sort">
                         <div class="dropdown">

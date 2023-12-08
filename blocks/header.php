@@ -23,16 +23,13 @@ if (isset($_SESSION['user_id'])) $folders = getAllFolders();
             <div class="navbar-menu" id="open-navbar1">
                 <ul class="navbar-nav">
                     <?php if (isset($_SESSION['user_id'])) { ?>
-                        <li><a href="../index.php">Рабочий стол</a></li>
                         <li class="navbar-dropdown">
                             <a href="#" class="dropdown-toggler" data-dropdown="my-dropdown-id">
-                                Мои папки <i class="fa fa-angle-down"></i>
+                                Рабочий стол <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown" id="my-dropdown-id">
-                                <?php if (empty($folders)) echo '<li><a href="#">Папок нет</a></li>'; ?>
-                                <?php foreach ($folders as $folder) {
-                                    echo '<li><a href="../categories/folder.php?id=' . $folder['id'] . '">' . $folder['theme'] . '</a></li>';
-                                } ?>
+                                <li><a href="../work.php">Работа</a></li>
+                                <li><a href="../index.php">Дом</a></li>
                             </ul>
                         </li>
                         <li><a href="../categories/profile.php">Профиль</a></li>

@@ -13,7 +13,9 @@
     <title>Worky✔</title>
 </head>
 
-<?php require_once __DIR__.'/functions/db/boot.php'; ?>
+<?php require_once __DIR__ . '/functions/db/boot.php'; ?>
+<?php $_SESSION['user_role'] == 'user' ? flash('Вы вошли как пользователь') : flash('Вы вошли как администратор'); ?>
+
 <body>
     <header class="header">
         <nav class="navbar">
@@ -32,24 +34,21 @@
                 <div class="navbar-menu" id="open-navbar1">
                     <ul class="navbar-nav">
                         <?php if ($_SESSION['user_id'] != null) { ?>
-                        <li><a href="index.php">Рабочий стол</a></li>
-                        <li class="navbar-dropdown">
-                            <a href="#" class="dropdown-toggler" data-dropdown="my-dropdown-id">
-                                Мои папки <i class="fa fa-angle-down"></i>
-                            </a>
-                            <ul class="dropdown" id="my-dropdown-id">
-                                <?php if (empty($folders)) echo '<li><a href="#">Папок нет</a></li>'; ?>
-                                <?php foreach ($folders as $folder) {
-                                    echo '<li><a href="categories/folder.php?id=' . $folder['id'] . '">' . $folder['theme'] . '</a></li>';
-                                } ?>
-                            </ul>
-                        </li>
-                        <li><a href="categories/profile.php">Профиль</a></li>
-                        <li>
-                            <a href="#">
-                                <form action="functions/do_logout.php" method="post"><button type="submit">Выйти</button></form>
-                            </a>
-                        </li>
+                            <li class="navbar-dropdown">
+                                <a href="#" class="dropdown-toggler" data-dropdown="my-dropdown-id">
+                                    Рабочий стол <i class="fa fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown" id="my-dropdown-id">
+                                    <li><a href="work.php">Работа</a></li>
+                                    <li><a href="index.php">Дом</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="categories/profile.php">Профиль</a></li>
+                            <li>
+                                <a href="#">
+                                    <form action="functions/do_logout.php" method="post"><button type="submit">Выйти</button></form>
+                                </a>
+                            </li>
                         <?php } else { ?>
                             <li><a href="categories/login.php">Войти</a></li>
                             <li><a href="categories/registration.php">Зарегистрироваться</a></li>
@@ -61,6 +60,7 @@
     </header>
 
     <main class="main" id="main">
+        </div>
         <section class="welcome">
             <div class="container">
                 <div class="welcome__head">
@@ -148,6 +148,8 @@
             </div>
         </div>
     </footer>
+    
+    <script src="assets/js/header.js"></script>
 </body>
 
 </html>

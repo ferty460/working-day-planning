@@ -8,9 +8,12 @@ course work at a technical school :(
     - User
     CREATE TABLE users (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        username VARCHAR(255),
+        name VARCHAR(255),
+        surname VARCHAR(255),
+        lastname VARCHAR(255) NULL,
         password VARCHAR(255),
-        email VARCHAR(255)
+        email VARCHAR(255),
+        role VARCHAR(255)
     );
 
     - Folder

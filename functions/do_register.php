@@ -9,15 +9,6 @@ if($_POST["captcha_code"] != $_SESSION["captcha_code"]) {
     die;
 }
 
-// Проверим, не занято ли имя пользователя
-$stmt = pdo()->prepare("SELECT * FROM `users` WHERE `username` = :username");
-$stmt->execute(['username' => $_POST['username']]);
-if ($stmt->rowCount() > 0) {
-    flash("Это имя пользователя уже занято");
-    header("Location: {$_SERVER['HTTP_REFERER']}"); // Возврат на форму регистрации
-    die; 
-}
-
 // Проверим, не занят ли email пользователя
 $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `email` = :email");
 $stmt->execute(['email' => $_POST['email']]);
@@ -27,12 +18,17 @@ if ($stmt->rowCount() > 0) {
     die; 
 }
 
+$role = $_POST['role'];
+
 // Добавим пользователя в базу
-$stmt = pdo()->prepare("INSERT INTO `users` (`username`, `password`, `email`) VALUES (:username, :password, :email)");
+$stmt = pdo()->prepare("INSERT INTO `users` (`name`, `surname`, `lastname`, `password`, `email`, `role`) VALUES (:name, :surname, :lastname, :password, :email, :role)");
 $stmt->execute([
-    'username' => $_POST['username'],
+    'name' => $_POST['name'],
+    'surname' => $_POST['surname'],
+    'lastname' => $_POST['lastname'],
     'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
     'email' => $_POST['email'],
+    'role' => $role
 ]);
 $userId = pdo()->lastInsertId();
 

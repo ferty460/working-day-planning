@@ -29,9 +29,9 @@
         die();
     }
 
-    include "../blocks/header.php"; 
+    include "../blocks/header.php";
     ?>
-    
+
     <main class="main">
         <section class="task__section">
             <div class="flex">
@@ -40,23 +40,38 @@
                 <div class="profile">
                     <img src="../assets/images/profile.svg" alt="profile" class="profile-img">
                     <div class="user-details">
-                        <h4 class="username"><?php echo $_SESSION['user_name'] ?></h4>
+                        <h4 class="username"><?php echo $_SESSION['user_surname']; ?></h4>
+                        <h4 class="name_details"><?php echo $_SESSION['user_name'] . ' ' . $_SESSION['user_lastname'];  ?></h4>
                         <h5 class="email"><?php echo $_SESSION['user_email'] ?></h5>
                     </div>
                 </div>
 
-                <!-------------------- TASKS -------------------->
                 <div class="tasks">
-                <?php foreach ($tasks as $task) {
-                    $class = $task['status'] ? 'done' : $task['priority'];
-                    $is_completed = $task['status'] ? 'Задача выполнена!' : 'Задача не выполнена!';
-                    
-                    echo '<a href="categories/task.php?id=' . $task['id'] . '">';
-                    echo '<div class="task task__' . $class . '">'; // high | normal | low | done
-                    echo '<div class="details__task"><h4 class="theme__task">' . $task['name'] . '</h4>';
-                    echo '<p class="description__task">' . $is_completed . '</p></div>';
-                    echo '<div><p class="date__task">' . $task['date'] . '</p></div></div></a>';
-                } ?>
+                    <!-------------------- EMPLOYERS -------------------->
+                    <form action="../functions/task_to_folder.php" method="post" id="myForm">
+                        <div>
+                            <select onchange="document.getElementById('myForm').submit()" name="task_id">
+                                <option>--Добавить работодателя--</option>
+                                <?php foreach ($tasks as $task) {
+                                    echo '<option value="' . $task['id'] . '">' . $task['name'] . '</option>';
+                                } ?>
+                            </select>
+                        </div>
+                    </form>
+
+                    <!-------------------- TASKS -------------------->
+                    <div>
+                        <?php foreach ($tasks as $task) {
+                            $class = $task['status'] ? 'done' : $task['priority'];
+                            $is_completed = $task['status'] ? 'Задача выполнена!' : 'Задача не выполнена!';
+
+                            echo '<a href="categories/task.php?id=' . $task['id'] . '">';
+                            echo '<div class="task task__' . $class . '">'; // high | normal | low | done
+                            echo '<div class="details__task"><h4 class="theme__task">' . $task['name'] . '</h4>';
+                            echo '<p class="description__task">' . $is_completed . '</p></div>';
+                            echo '<div><p class="date__task">' . $task['date'] . '</p></div></div></a>';
+                        } ?>
+                    </div>
                 </div>
 
             </div>
@@ -64,7 +79,7 @@
     </main>
 
     <?php include "../blocks/footer.php" ?>
-    
+
     <script src="../assets/js/header.js"></script>
 </body>
 
