@@ -220,6 +220,10 @@ body {
     margin: 1rem 0;
 }
 
+.folder-img1 {
+    width: 40px;
+}
+
 .folder:hover {
     cursor: pointer;
 }

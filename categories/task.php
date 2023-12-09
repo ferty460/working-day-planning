@@ -86,7 +86,7 @@
 
                                     echo '<div class="task__item"><div class="task task__' . $class . ' subtask"><div class="details__task">';
                                     echo '<h4 class="theme__task">' . $subtask['theme'] . '</h4><p class="description__task">' . $is_completed . '</p></div>';
-                                    if ($is_completed) {
+                                    if ($subtask['is_completed']) {
                                         echo '<div><p class="date__task">' . $subtask['date_completed'] . '</p></div></div></div>';
                                     } else {
                                         echo '<div><form action="../functions/perform_subtask.php" method="post">

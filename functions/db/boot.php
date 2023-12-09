@@ -243,3 +243,21 @@ function getEmployerById($id) {
     $stmt->execute(['id' => $id]);
     return $stmt->fetch();
 }
+
+function getAllGroups() {
+    $stmt = pdo()->prepare("SELECT * FROM groups WHERE user = :id");
+    $stmt->execute(['id' => $_SESSION['user_id']]);
+    return $stmt->fetchAll();
+}
+
+function getGroupById($id) {
+    $stmt = pdo()->prepare("SELECT * FROM `groups` WHERE `id` = :id");
+    $stmt->execute(['id' => $id]);
+    return $stmt->fetch();
+}
+
+function getUsersFromGroup($id) {
+    $stmt = pdo()->prepare("SELECT * FROM users JOIN users_groups ON users.id = users_groups.user_id WHERE users_groups.group_id = :group_id;");
+    $stmt->execute(['group_id' => $id]);
+    return $stmt->fetchAll();
+}

@@ -19,8 +19,8 @@
 
     $user = null;
     $users = getUserList();
-    $employees = getEmployeesList($_SESSION['user_id']);
-    $employer = getEmployerById($_SESSION['user_id']);
+    $employees = empty(getEmployeesList($_SESSION['user_id'])) ? null : getEmployeesList($_SESSION['user_id']);
+    $employer = empty(getEmployerById($_SESSION['user_id'])) ? null : getEmployerById($_SESSION['user_id']);
 
     if (check_auth()) {
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
@@ -65,17 +65,25 @@
 
                         <!-------------------- TASKS -------------------->
                         <div>
-                            <h3 class="title">Мои подписечники</h3>
-                            <?php foreach ($employees as $employee) { ?>
-                                <p><?php echo $employee['surname'] . ' ' . $employee['name'] . ' ' . $employee['lastname']; ?></p>
-                            <?php } ?>
+                            <h3 class="title" style="margin-left: 0; padding-left: 0;">Мои подписечники</h3>
+                            <?php
+                            if (empty($employees)) echo "<p>Работников нет</p>";
+                            else {
+                                foreach ($employees as $employee) { ?>
+                                    <p><?php echo $employee['surname'] . ' ' . $employee['name'] . ' ' . $employee['lastname']; ?></p>
+                            <?php }} ?>
                         </div>
                     <?php } ?>
 
                     <?php if ($_SESSION['user_role'] === 'user') { ?>
                         <div>
-                            <h3 class="title">Мой работодатель</h3>
-                            <p><?php echo $employer['surname'] . ' ' . $employer['name'] . ' ' . $employer['lastname']; ?></p>
+                            <h3 class="title" style="margin-left: 0; padding-left: 0;">Мой работодатель</h3>
+                            <p>
+                                <?php
+                                if (empty($employer)) echo "Работодателя нет";
+                                else echo $employer['surname'] . ' ' . $employer['name'] . ' ' . $employer['lastname'];
+                                ?>
+                            </p>
                         </div>
                     <?php } ?>
                 </div>

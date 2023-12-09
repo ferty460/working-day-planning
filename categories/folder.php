@@ -66,7 +66,7 @@
                 <form action="../functions/edit_folder.php" method="post">
                     <div class="theme-description">
                         <img src="../assets/images/folder.svg" alt="folder" class="folder-img">
-                        <input type="text" name="theme" placeholder="Тема задачи" value="<?php echo $folder['theme'] ?>" required>
+                        <input type="text" name="theme" placeholder="Тема папки" value="<?php echo $folder['theme'] ?>" required>
                         <textarea name="description" placeholder="Описание"><?php echo $folder['description'] ?></textarea>
                         <div class="block-buttons">
                             <div class="buttons" style="justify-content:left;">

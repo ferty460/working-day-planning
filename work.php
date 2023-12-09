@@ -32,6 +32,7 @@
 
     $user = null;
     $folders = getAllFolders();
+    $groups = getAllGroups();
 
     if (check_auth()) {
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
@@ -107,16 +108,16 @@
                     </div>
                 </div>
                 <div class="folders">
-                    <a href="categories/folder_add.php">
+                    <a href="categories/group_add.php">
                         <div class="add__folder">
-                            <h3>Мои папки</h3>
+                            <h3>Мои группы</h3>
                             <p>+</p>
                         </div>
                     </a>
-                    <?php if (empty($folders)) echo '<h3 style="font-size:18px;margin-top:1rem;text-align:center;">Папок нет</h3>'; ?>
-                    <?php foreach ($folders as $folder) {
-                        echo '<a href="categories/folder.php?id=' . $folder['id'] . '">';
-                        echo '<div class="folder"><img src="assets/images/folder.png" alt="folder"><h4>' . $folder['theme'] . '</h4></div></a>';
+                    <?php if (empty($groups)) echo '<h3 style="font-size:18px;margin-top:1rem;text-align:center;">Групп нет</h3>'; ?>
+                    <?php foreach ($groups as $group) {
+                        echo '<a href="categories/group.php?id=' . $group['id'] . '">';
+                        echo '<div class="folder"><img class="folder-img1" src="assets/images/group.png" alt="group"><h4>' . $group['theme'] . '</h4></div></a>';
                     } ?>
                 </div>
             </div>
@@ -129,7 +130,7 @@
             <div class="option__panel">
                 <hr class="hr">
                 <div class="options">
-                    <div></div>
+                    <a href="categories/group_add.php" class="add__task">+ Добавить группу</a>
                     <div class="block__sort">
                         <img src="assets/images/sort.png" alt="sort" class="img__sort">
                         <div class="dropdown">

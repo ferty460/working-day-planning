@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../assets/css/media.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/footer.css">
-    <title>Добавление папки | Worky✔</title>
+    <title>Добавление группы | Worky✔</title>
 </head>
 
 <body>
@@ -27,22 +27,26 @@
         die();
     }
 
+    if ($_SESSION['user_role'] !== 'admin') {
+        header("Location: ../work.php");
+    }
+
     include "../blocks/header.php"; 
     ?>
 
     <main class="main">
         <section class="task__section">
             <div class="title__block">
-                <h1 class="title">Добавление папки</h1>
+                <h1 class="title">Добавление группы</h1>
                 <hr class="line">
             </div>
-            <form action="../functions/add_folder.php" method="post" style="width: 100%;">
+            <form action="../functions/add_group.php" method="post" style="width: 100%;">
                 <div class="center">
 
                     <!-------------------- THEME AND DESCRIPTION -------------------->
                     <div class="theme-description form" style="margin: 0 auto;">
-                        <img src="../assets/images/folder.svg" alt="folder" class="folder-img">
-                        <input type="text" name="theme" placeholder="Тема папки">
+                        <img src="../assets/images/group.png" alt="folder" class="folder-img">
+                        <input type="text" name="theme" placeholder="Тема группы">
                         <textarea name="description" placeholder="Описание"></textarea>
                     </div>
 

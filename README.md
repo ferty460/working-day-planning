@@ -18,6 +18,24 @@ course work at a technical school :(
         FOREIGN KEY (employer_id) REFERENCES users(id)
     );
 
+    - Group
+    CREATE TABLE groups (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        theme VARCHAR(255),
+        description TEXT,
+        user INT NULL,
+        FOREIGN KEY (user) REFERENCES users(id)
+    );
+
+    - UserGroup
+    CREATE TABLE users_groups (
+        user_id INT,
+        group_id INT,
+        PRIMARY KEY (user_id, group_id),
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        FOREIGN KEY (group_id) REFERENCES groups(id)
+    );
+
     - Folder
     CREATE TABLE folders (
         id INT AUTO_INCREMENT PRIMARY KEY,
