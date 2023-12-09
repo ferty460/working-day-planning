@@ -22,7 +22,7 @@
     $year = explode('-', $date)[0];
     $month = getMonthName(explode('-', $date)[1]);
     $day = explode('-', $date)[2];
-    $tasks = getTasksByDate($date);
+    $tasks = getTasksByDate($date, $_SESSION['user_id']);
 
     if (check_auth()) {
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");

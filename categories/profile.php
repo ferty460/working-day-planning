@@ -74,7 +74,7 @@
                                 foreach ($employees as $employee) {
                                     echo '<a href="user.php?id=' . $employee['id'] . '">';
                                     echo '<div class="task task__low">'; // high | normal | low | done
-                                    echo '<div class="details__task"><h4 class="theme__task">' . $employee['name'] . ' ' . $employee['surname'] . ' ' . $user['lastname'] . '</h4>';
+                                    echo '<div class="details__task"><h4 class="theme__task">' . $employee['surname'] . ' ' . $employee['name'] . ' ' . $user['lastname'] . '</h4>';
                                     echo '<p class="description__task">' . $employee['email'] . '</p></div></div></a>';
                                 }
                             }

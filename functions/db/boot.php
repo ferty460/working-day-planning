@@ -102,10 +102,11 @@ function getFolderById($folderId) {
     return $stmt->fetch();
 }
 
-function getTasksByDate($date) {
-    $stmt = pdo()->prepare("SELECT * FROM `tasks` WHERE user_id = :user_id AND date = :date");
+function getTasksByDate($date, $employerId) {
+    $stmt = pdo()->prepare("SELECT * FROM `tasks` WHERE user_id = :user_id OR employer = :employer_id AND date = :date");
     $stmt->execute([
         'user_id' => $_SESSION['user_id'],
+        'employer_id' => $employerId,
         'date' => $date
     ]);
     return $stmt->fetchAll();
