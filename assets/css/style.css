@@ -588,3 +588,11 @@ select {
     width: 100%;
     text-align: left;
 }
+
+.task_user {
+    color: #222D89;
+}
+
+.task_user:hover {
+    text-decoration: underline;
+}

@@ -53,10 +53,13 @@ course work at a technical school :(
         status BOOLEAN,
         priority VARCHAR(255),
         date DATE,
+        role ENUM('home', 'work'),
         user_id INT NULL,
         folder INT NULL,
+        employer INT NULL,
         FOREIGN KEY (user_id) REFERENCES users(id),
-        FOREIGN KEY (folder) REFERENCES folders(id)
+        FOREIGN KEY (folder) REFERENCES folders(id),
+        FOREIGN KEY (employer) REFERENCES users(id)
     );
 
     - Subtask

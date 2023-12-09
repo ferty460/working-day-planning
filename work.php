@@ -20,19 +20,39 @@
     require_once __DIR__ . '/functions/db/boot.php';
 
     $sort = isset($_GET['sort']) ? $_GET['sort'] : null;
-    if ($sort == 'near') $tasks = getNearestTasks();
-    else if ($sort == 'far') $tasks = getFarestTasks();
-    else if ($sort == 'a-z') $tasks = getA_ZTasks();
-    else if ($sort == 'z-a') $tasks = getZ_ATasks();
-    else if ($sort == 'important') $tasks = getHighToLowTasks();
-    else if ($sort == 'unimportant') $tasks = getLowToHighTasks();
-    else if ($sort == 'completed') $tasks = getCompletedTasks();
-    else if ($sort == 'unfulfilled') $tasks = getUnfulfilledTasks();
-    else $tasks = getNearestTasks();
+    if ($sort == 'near') {
+        $tasks = getNearestWorkTasks();
+        $employerTasks = getNearestTasksByEmployer($_SESSION['user_id']);
+    } else if ($sort == 'far') {
+        $tasks = getFarestWorkTasks();
+        $employerTasks = getFarestEmployerTasks($_SESSION['user_id']);
+    } else if ($sort == 'a-z') {
+        $tasks = getA_ZWorkTasks();
+        $employerTasks = getA_ZEmployerTasks($_SESSION['user_id']);
+    } else if ($sort == 'z-a') {
+        $tasks = getZ_AWorkTasks();
+        $employerTasks = getZ_AEmployerTasks($_SESSION['user_id']);
+    } else if ($sort == 'important') {
+        $tasks = getHighToLowWorkTasks();
+        $employerTasks = getHighToLowEmployerTasks($_SESSION['user_id']);
+    } else if ($sort == 'unimportant') {
+        $tasks = getLowToHighWorkTasks();
+        $employerTasks = getLowToHighEmployerTasks($_SESSION['user_id']);
+    } else if ($sort == 'completed') {
+        $tasks = getCompletedWorkTasks();
+        $employerTasks = getCompletedEmployerTasks($_SESSION['user_id']);
+    } else if ($sort == 'unfulfilled') {
+        $tasks = getUnfulfilledWorkTasks();
+        $employerTasks = getUnfulfilledEmployerTasks($_SESSION['user_id']);
+    } else {
+        $tasks = getNearestWorkTasks();
+        $employerTasks = getNearestTasksByEmployer($_SESSION['user_id']);
+    }
 
     $user = null;
     $folders = getAllFolders();
     $groups = getAllGroups();
+    $userGroups = getGroupsByUser($_SESSION['user_id']);
 
     if (check_auth()) {
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
@@ -42,6 +62,7 @@
         header("Location: categories/login.php");
         die();
     }
+
     ?>
 
     <!------------------ HEADER ------------------>
@@ -107,19 +128,23 @@
                         </p>
                     </div>
                 </div>
-                <div class="folders">
-                    <a href="categories/group_add.php">
-                        <div class="add__folder">
-                            <h3>Мои группы</h3>
-                            <p>+</p>
-                        </div>
-                    </a>
-                    <?php if (empty($groups)) echo '<h3 style="font-size:18px;margin-top:1rem;text-align:center;">Групп нет</h3>'; ?>
-                    <?php foreach ($groups as $group) {
-                        echo '<a href="categories/group.php?id=' . $group['id'] . '">';
-                        echo '<div class="folder"><img class="folder-img1" src="assets/images/group.png" alt="group"><h4>' . $group['theme'] . '</h4></div></a>';
-                    } ?>
-                </div>
+                <?php if ($_SESSION['user_role'] === 'admin') { ?>
+                    <div class="folders">
+                        <a href="categories/group_add.php">
+                            <div class="add__folder">
+                                <h3>Мои группы</h3>
+                                <p>+</p>
+                            </div>
+                        </a>
+                        <?php
+                        if (empty($groups)) echo '<h3 style="font-size:18px;margin-top:1rem;text-align:center;">Групп нет</h3>';
+                        foreach ($groups as $group) {
+                            echo '<a href="categories/group.php?id=' . $group['id'] . '">';
+                            echo '<div class="folder"><img class="folder-img1" src="assets/images/group.png" alt="group"><h4>' . $group['theme'] . '</h4></div></a>';
+                        }
+                        ?>
+                    </div>
+                <?php } ?>
             </div>
 
         </section>
@@ -130,7 +155,9 @@
             <div class="option__panel">
                 <hr class="hr">
                 <div class="options">
-                    <a href="categories/group_add.php" class="add__task">+ Добавить группу</a>
+                    <?php if ($_SESSION['user_role'] === 'admin') { ?>
+                        <a href="categories/work_task_add.php" class="add__task">+ Добавить задачу</a>
+                    <?php } else echo '<div></div>'; ?>
                     <div class="block__sort">
                         <img src="assets/images/sort.png" alt="sort" class="img__sort">
                         <div class="dropdown">
@@ -151,16 +178,31 @@
             </div>
 
             <div class="tasks">
-                <?php foreach ($tasks as $task) {
-                    $class = $task['status'] ? 'done' : $task['priority'];
-                    $is_completed = $task['status'] ? 'Задача выполнена!' : 'Задача не выполнена!';
+                <?php
+                if ($_SESSION['user_role'] === 'home') {
+                    foreach ($tasks as $task) {
+                        $class = $task['status'] ? 'done' : $task['priority'];
+                        $is_completed = $task['status'] ? 'Задача выполнена!' : 'Задача не выполнена!';
 
-                    echo '<a href="categories/task.php?id=' . $task['id'] . '">';
-                    echo '<div class="task task__' . $class . '">'; // high | normal | low | done
-                    echo '<div class="details__task"><h4 class="theme__task">' . $task['name'] . '</h4>';
-                    echo '<p class="description__task">' . $is_completed . '</p></div>';
-                    echo '<div><p class="date__task">' . $task['date'] . '</p></div></div></a>';
-                } ?>
+                        echo '<a href="categories/task.php?id=' . $task['id'] . '">';
+                        echo '<div class="task task__' . $class . '">'; // high | normal | low | done
+                        echo '<div class="details__task"><h4 class="theme__task">' . $task['name'] . '</h4>';
+                        echo '<p class="description__task">' . $is_completed . '</p></div>';
+                        echo '<div><p class="date__task">' . $task['date'] . '</p></div></div></a>';
+                    }
+                } else {
+                    foreach ($employerTasks as $task) {
+                        $class = $task['status'] ? 'done' : $task['priority'];
+                        $is_completed = $task['status'] ? 'Задача выполнена!' : 'Задача не выполнена!';
+
+                        echo '<a href="categories/task.php?id=' . $task['id'] . '">';
+                        echo '<div class="task task__' . $class . '">'; // high | normal | low | done
+                        echo '<div class="details__task"><h4 class="theme__task">' . $task['name'] . '</h4>';
+                        echo '<p class="description__task">' . $is_completed . '</p></div>';
+                        echo '<div><p class="date__task">' . $task['date'] . '</p></div></div></a>';
+                    }
+                }
+                ?>
             </div>
 
         </section>

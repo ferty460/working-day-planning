@@ -51,7 +51,8 @@
                 <div class="title__block">
                     <?php if ($_SESSION['user_role'] === 'admin') { ?>
                         <!-------------------- EMPLOYERS -------------------->
-                        <form action="../functions/add_employee.php" method="post" id="myForm">
+
+                        <form action="../functions/add_employee.php" method="post" id="myForm" style="margin-bottom: .5rem;">
                             <div>
                                 <select onchange="document.getElementById('myForm').submit()" name="user_id">
                                     <option>--Добавить работника--</option>
@@ -62,16 +63,22 @@
                                 <input type="hidden" name="my_id" value="<?php echo $_SESSION['user_id']; ?>">
                             </div>
                         </form>
+                        <hr class="line">
 
-                        <!-------------------- TASKS -------------------->
+                        <!-------------------- EMPLOYEES -------------------->
                         <div>
-                            <h3 class="title" style="margin-left: 0; padding-left: 0;">Мои подписечники</h3>
+                            <h3 class="title" style="margin-left: 0; padding-left: 0;">Мои работники</h3>
                             <?php
                             if (empty($employees)) echo "<p>Работников нет</p>";
                             else {
-                                foreach ($employees as $employee) { ?>
-                                    <p><?php echo $employee['surname'] . ' ' . $employee['name'] . ' ' . $employee['lastname']; ?></p>
-                            <?php }} ?>
+                                foreach ($employees as $employee) {
+                                    echo '<a href="user.php?id=' . $employee['id'] . '">';
+                                    echo '<div class="task task__low">'; // high | normal | low | done
+                                    echo '<div class="details__task"><h4 class="theme__task">' . $employee['name'] . ' ' . $employee['surname'] . ' ' . $user['lastname'] . '</h4>';
+                                    echo '<p class="description__task">' . $employee['email'] . '</p></div></div></a>';
+                                }
+                            }
+                            ?>
                         </div>
                     <?php } ?>
 

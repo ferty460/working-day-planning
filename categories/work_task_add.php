@@ -18,6 +18,7 @@
     require_once '../functions/db/boot.php';
 
     $user = null;
+    $users = getEmployeesList($_SESSION['user_id']);
 
     if (check_auth()) {
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
@@ -43,6 +44,13 @@
 
                         <!-------------------- THEME AND DESCRIPTION -------------------->
                         <div class="theme-description form">
+                            <select name="user_id" style="margin-bottom: .5rem; padding: 5px; border: 1px solid #494949; border-radius: 10px;">
+                                <option>--Добавить работника--</option>
+                                <?php foreach ($users as $user) {
+                                    echo '<option value="' . $user['id'] . '">' . $user['surname'] . ' ' . $user['name'] . ' ' . $user['lastname'] . '</option>';
+                                } ?>
+                            </select>
+                            <input type="hidden" name="role" value="work">
                             <input type="text" name="task-theme" placeholder="Тема задачи" required>
                             <textarea name="task-description" placeholder="Описание"></textarea>
                         </div>
@@ -84,7 +92,6 @@
                     <div class="block-buttons">
                         <div class="buttons">
                             <input type="button" value="Отмена" class="cancel_ok" onclick="window.history.back()">
-                            <input type="hidden" name="role" value="home">
                             <input type="submit" value="Готово" class="ok">
                         </div>
                     </div>

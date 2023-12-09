@@ -24,6 +24,8 @@
     $subtasks = getSubtasksByTaskId($taskId);
     $completedSubtasks = getPercentageCompletedSubtasksInTask($taskId);
 
+    $taskUser = getUserByTaskId($task['user_id']);
+
     if (check_auth()) {
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
         $stmt->execute(['id' => $_SESSION['user_id']]);
@@ -32,7 +34,7 @@
         header("Location: login.php");
         die();
     }
-    if ($task['user_id'] != $user['id']) header('Location: login.php');
+    if ($task['user_id'] != $user['id'] && $task['employer'] != $user['id']) header('Location: login.php');
     ?>
 
     <?php include "../blocks/header.php" ?>
@@ -68,6 +70,9 @@
             <!------------------ SUBTASKS ------------------>
             <div id="Subtasks" class="container-fluid tab-content tab-active">
                 <div class="container-fluid">
+                    <h3 class="subtitle" style="margin-top:1rem;">
+                        Задача для <?php echo '<a class="task_user" href="../categories/user.php?id=' . $taskUser['id'] . '">' . $taskUser['surname'] . ' ' . $taskUser['name'] . ' ' . $taskUser['lastname'] . '</a>'; ?>
+                    </h3>
                     <div class="subtask__block">
                         <div class="form-list">
                             <form action="../functions/add_subtask.php" method="post">
@@ -111,6 +116,9 @@
             <!------------------ EDIT TASK ------------------>
             <div id="EditTask" class="container-fluid tab-content">
                 <div class="container-fluid">
+                    <h3 class="subtitle" style="margin-top:1rem;">
+                        Задача для <?php echo '<a class="task_user" href="../categories/user.php?id=' . $taskUser['id'] . '">' . $taskUser['surname'] . ' ' . $taskUser['name'] . ' ' . $taskUser['lastname'] . '</a>'; ?>
+                    </h3>
                     <div class="task__block">
                         <form action="../functions/edit_task.php" method="post">
                             <div class="theme-description-priority">
@@ -164,11 +172,11 @@
                     </div>
                 </div>
             </div>
-            
+
         </section>
     </main>
     <?php include "../blocks/footer.php" ?>
-    
+
     <script src="../assets/js/header.js"></script>
     <script src="../assets/js/tabs.js"></script>
 </body>
