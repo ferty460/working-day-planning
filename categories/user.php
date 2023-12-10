@@ -18,7 +18,7 @@
     require_once '../functions/db/boot.php';
 
     $user = null;
-    $users = getUserList();
+    // $users = getUserList();
     $employees = empty(getEmployeesList($_SESSION['user_id'])) ? null : getEmployeesList($_SESSION['user_id']);
     $employer = empty(getEmployerById($_SESSION['user_id'])) ? null : getEmployerById($_SESSION['user_id']);
 

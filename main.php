@@ -14,7 +14,6 @@
 </head>
 
 <?php require_once __DIR__ . '/functions/db/boot.php'; ?>
-<?php $_SESSION['user_role'] == 'user' ? flash('Вы вошли как пользователь') : flash('Вы вошли как администратор'); ?>
 
 <body>
     <header class="header">

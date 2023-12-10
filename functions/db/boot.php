@@ -35,15 +35,7 @@ function check_auth(): bool {
     return !!($_SESSION['user_id'] ?? false);
 }
 
-// USEFULL FUNCTIONS
-function getAllTasks() {
-    $stmt = pdo()->prepare("SELECT * FROM `tasks` WHERE user_id = :user_id");
-    $stmt->execute([
-        'user_id' => $_SESSION['user_id'],
-    ]);
-    return $stmt->fetchAll();
-}
-
+// USEFUL FUNCTIONS
 function getTaskById($taskId) {
     $stmt = pdo()->prepare("SELECT * FROM `tasks` WHERE `id` = :id");
     $stmt->execute(['id' => $taskId]);
@@ -54,12 +46,6 @@ function getSubtasksByTaskId($taskId) {
     $stmt = pdo()->prepare("SELECT * FROM `subtasks` WHERE `task` = :id");
     $stmt->execute(['id' => $taskId]);
     return $stmt->fetchAll();
-}
-
-function getSubtaskById($subtaskId) {
-    $stmt = pdo()->prepare("SELECT * FROM `subtasks` WHERE `id` = :id");
-    $stmt->execute(['id' => $subtaskId]);
-    return $stmt->fetch();
 }
 
 function getPercentageCompletedSubtasksInTask($taskId) {
@@ -87,12 +73,6 @@ function getAllFolders() {
     $stmt->execute([
         'user' => $_SESSION['user_id'],
     ]);
-    return $stmt->fetchAll();
-}
-
-function getTasksFromFolder($folder) {
-    $stmt = pdo()->prepare("SELECT * FROM `tasks` WHERE `folder` = :folder");
-    $stmt->execute(['folder' => $folder]);
     return $stmt->fetchAll();
 }
 
@@ -344,7 +324,7 @@ function getUnfulfilledEmployerTasks($id) {
 }
 
 function getUserList() {
-    $stmt = pdo()->prepare("SELECT * FROM users WHERE role = :role");
+    $stmt = pdo()->prepare("SELECT * FROM users WHERE role = :role AND employer_id IS NULL");
     $stmt->execute(['role' => 'user']);
     return $stmt->fetchAll();
 }
