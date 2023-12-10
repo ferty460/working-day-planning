@@ -232,9 +232,9 @@ function getUnfulfilledTasks() {
 }
 
 // WORK TASKS SORT
-function getNearestWorkTasks() {
+function getNearestWorkTasks($id) {
     $stmt = pdo()->prepare("SELECT * FROM `tasks` WHERE user_id = :user AND `role` = :role ORDER BY date ASC");
-    $stmt->execute(['user' => $_SESSION['user_id'], 'role' => 'work']);
+    $stmt->execute(['user' => $id, 'role' => 'work']);
     return $stmt->fetchAll();
 }
 

@@ -21,7 +21,7 @@
 
     $sort = isset($_GET['sort']) ? $_GET['sort'] : null;
     if ($sort == 'near') {
-        $tasks = getNearestWorkTasks();
+        $tasks = getNearestWorkTasks($_SESSION['user_id']);
         $employerTasks = getNearestTasksByEmployer($_SESSION['user_id']);
     } else if ($sort == 'far') {
         $tasks = getFarestWorkTasks();
@@ -45,7 +45,7 @@
         $tasks = getUnfulfilledWorkTasks();
         $employerTasks = getUnfulfilledEmployerTasks($_SESSION['user_id']);
     } else {
-        $tasks = getNearestWorkTasks();
+        $tasks = getNearestWorkTasks($_SESSION['user_id']);
         $employerTasks = getNearestTasksByEmployer($_SESSION['user_id']);
     }
 
@@ -179,7 +179,7 @@
 
             <div class="tasks">
                 <?php
-                if ($_SESSION['user_role'] === 'home') {
+                if ($_SESSION['user_role'] === 'user') {
                     foreach ($tasks as $task) {
                         $class = $task['status'] ? 'done' : $task['priority'];
                         $is_completed = $task['status'] ? 'Задача выполнена!' : 'Задача не выполнена!';

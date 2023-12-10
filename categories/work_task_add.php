@@ -29,6 +29,10 @@
         die();
     }
 
+    if (empty($users)) {
+        header("Location: profile.php");
+    }
+
     include "../blocks/header.php";
     ?>
 
@@ -44,8 +48,7 @@
 
                         <!-------------------- THEME AND DESCRIPTION -------------------->
                         <div class="theme-description form">
-                            <select name="user_id" style="margin-bottom: .5rem; padding: 5px; border: 1px solid #494949; border-radius: 10px;">
-                                <option>--Добавить работника--</option>
+                            <select name="user_id" style="margin-bottom: .5rem; padding: 5px; border: 1px solid #494949; border-radius: 10px;" required>
                                 <?php foreach ($users as $user) {
                                     echo '<option value="' . $user['id'] . '">' . $user['surname'] . ' ' . $user['name'] . ' ' . $user['lastname'] . '</option>';
                                 } ?>

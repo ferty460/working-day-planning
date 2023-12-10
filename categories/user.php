@@ -25,6 +25,7 @@
     $employeeId = $_GET['id'];
     $employee = getUserById($employeeId);
     $groups = getGroupsByUser($employeeId);
+    $workTasks = getNearestWorkTasks($employeeId);
 
     if (check_auth()) {
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
@@ -56,9 +57,28 @@
                     </div>
                 </div>
 
-                <div class="title__block">
+                <div class="title__block" style="display: flex;">
+                    <!-------------------- TASKS -------------------->
+                    <div style="width:100%;">
+                        <h3 class="title" style="margin-left: 0; padding-left: 0;">Рабочие задачи</h3>
+                        <?php
+                        if (empty($workTasks)) echo "<p>Задач нет</p>";
+                        else {
+                            foreach ($workTasks as $task) {
+                                $class = $task['status'] ? 'done' : $task['priority'];
+                                $is_completed = $task['status'] ? 'Задача выполнена!' : 'Задача не выполнена!';
+
+                                echo '<a href="task.php?id=' . $task['id'] . '">';
+                                echo '<div class="task task__' . $class . '">'; // high | normal | low | done
+                                echo '<div class="details__task"><h4 class="theme__task">' . $task['name'] . '</h4>';
+                                echo '<p class="description__task">' . $is_completed . '</p></div>';
+                                echo '<div><p class="date__task">' . $task['date'] . '</p></div></div></a>';
+                            }
+                        } ?>
+                    </div>
+
                     <!-------------------- GROUPS -------------------->
-                    <div>
+                    <div style="width:100%;margin-left:2rem;">
                         <h3 class="title" style="margin-left: 0; padding-left: 0;">Группы</h3>
                         <?php
                         if (empty($groups)) echo "<p>Групп нет</p>";
@@ -71,9 +91,6 @@
                             }
                         } ?>
                     </div>
-
-                    <!-------------------- EMPLOYEES -------------------->
-                    
                 </div>
 
             </div>

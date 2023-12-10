@@ -25,6 +25,7 @@
     $completedSubtasks = getPercentageCompletedSubtasksInTask($taskId);
 
     $taskUser = getUserByTaskId($task['user_id']);
+    $address = $task['role'] == 'work' ? 'work' : 'index';
 
     if (check_auth()) {
         $stmt = pdo()->prepare("SELECT * FROM `users` WHERE `id` = :id");
@@ -57,10 +58,12 @@
                     <div style="display: flex;">
                         <form action="../functions/delete_task.php" method="post">
                             <input type="hidden" name="task_id" value="<?php echo $taskId ?>">
+                            <input type="hidden" name="role" value="<?php echo $address ?>">
                             <input type="submit" value="Удалить" class="delete">
                         </form>
                         <form action="../functions/perform_task.php" method="post">
                             <input type="hidden" name="task_id" value="<?php echo $taskId ?>">
+                            <input type="hidden" name="role" value="<?php echo $address ?>">
                             <input type="submit" value="Завершить" class="ok">
                         </form>
                     </div>
@@ -71,7 +74,13 @@
             <div id="Subtasks" class="container-fluid tab-content tab-active">
                 <div class="container-fluid">
                     <h3 class="subtitle" style="margin-top:1rem;">
-                        Задача для <?php echo '<a class="task_user" href="../categories/user.php?id=' . $taskUser['id'] . '">' . $taskUser['surname'] . ' ' . $taskUser['name'] . ' ' . $taskUser['lastname'] . '</a>'; ?>
+                    <?php 
+                    if ($_SESSION['user_id'] == $taskUser['id']) {
+                        echo 'Задача для <a class="task_user" href="../categories/profile.php">' . $taskUser['surname'] . ' ' . $taskUser['name'] . ' ' . $taskUser['lastname'] . '</a>';
+                    } else {
+                        echo 'Задача для <a class="task_user" href="../categories/user.php?id=' . $taskUser['id'] . '">' . $taskUser['surname'] . ' ' . $taskUser['name'] . ' ' . $taskUser['lastname'] . '</a>';
+                    }
+                    ?>
                     </h3>
                     <div class="subtask__block">
                         <div class="form-list">
@@ -165,6 +174,7 @@
                                 </div>
                                 <div class="buttons">
                                     <input type="hidden" name="task_id" value="<?php echo $taskId ?>">
+                                    <input type="hidden" name="role" value="<?php echo $address ?>">
                                     <input type="submit" value="Сохранить" class="ok">
                                 </div>
                             </div>

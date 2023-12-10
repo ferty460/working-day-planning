@@ -3,6 +3,7 @@
 require_once __DIR__. '/db/boot.php';
 
 $taskId = $_POST['task_id'];
+$address = $_POST['role'];
 
 $stmt = pdo()->prepare("UPDATE `tasks` SET status = :status WHERE id = :id");
 $stmt->execute([
@@ -10,4 +11,4 @@ $stmt->execute([
     'id' => $taskId,
 ]);
 
-header("Location: ../index.php");
+header("Location: ../$address.php");
