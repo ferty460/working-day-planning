@@ -2,8 +2,6 @@
 
 require_once __DIR__. '/db/boot.php';
 
-flash($_SESSION['user_id']);
-
 $role = $_POST['role'];
 $user_id = $role === 'work' ? $_POST['user_id'] : $_SESSION['user_id'];
 $employer = $role === 'work' ? $_SESSION['user_id'] : null;
